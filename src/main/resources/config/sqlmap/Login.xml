@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.mlec.loginMapper">
+	<resultMap type="memberVO" id="memberMap">
+		<result property="usr_no" column="USR_NO"/>
+		<result property="id" column="ID"/>
+		<result property="pw" column="PW"/>
+		<result property="filePath" column="FILEPATH"/>
+		<result property="oriName" column="ORINAME"/>
+		<result property="sysName" column="SYSNAME"/>
+	</resultMap>
+
+	<select id="getMember" resultMap="memberMap" parameterType="memberVO">
+		SELECT *
+		  FROM TBLUSERINFO
+		 WHERE ID = #{id}
+		   AND PW = #{pw}
+	</select>
+	<select id="getUserId" resultType="string">
+		select id from TBLUSERINFO
+	</select>
+	
+	<select id="checkId" resultType="memberVO" parameterType="string">
+		SELECT ID 
+		  FROM TBLUSERINFO 
+		 WHERE ID = #{id}
+	</select>
+	
+	<insert id="newMember" parameterType="memberVO">
+		INSERT INTO TBLUSERINFO(USR_NO, ID, PW, FILEPATH, ORINAME, SYSNAME,NICKNAME)
+		VALUES (MEMBER_NO.NEXTVAL, #{id}, #{pw}, #{filePath}, #{oriName}, #{sysName},#{nickName})
+	</insert>
+	
+	<update id="modUser" parameterType="memberVO">
+		UPDATE TBLUSERINFO
+		 <set>
+		   	<if test="nickName != null">NICKNAME = #{nickName},</if>
+		   	<if test="filePath != null">FILEPATH = #{filePath},</if>
+		   	<if test="oriName != null">ORINAME = #{oriName},</if>
+		   	<if test="sysName != null">SYSNAME = #{sysName},</if>
+		   	<if test="pw != null">PW = #{pw}</if>
+		</set>
+		 WHERE USR_NO = #{usr_no}
+	</update>
+</mapper>

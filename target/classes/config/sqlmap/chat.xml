@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.mlec.chatMapper">
+	<resultMap type="memberVO" id="memberMap">
+		<result property="usr_no" column="USR_NO"/>
+		<result property="id" column="ID"/>
+		<result property="pw" column="PW"/>
+		<result property="filePath" column="FILEPATH"/>
+		<result property="oriName" column="ORINAME"/>
+		<result property="sysName" column="SYSNAME"/>
+	</resultMap>
+	
+	<resultMap type="chatRoomVO" id="chatRoomMap">
+		<result property="cno" column="CNO"/>
+		<result property="enter_usrno" column="ENTER_USRNO"/>
+		<result property="user_list" column="USER_LIST"/>
+		<result property="createDate" column="CREATEDATE"/>
+	</resultMap>
+	
+	<resultMap type="chatRoomDetailVO" id="chatRoomDetailMap">
+		<result property="cno" column="CNO"/>
+		<result property="chat_seq" column="CHAT_SEQ"/>
+		<result property="send_usrno" column="SEND_USRNO"/>
+		<result property="recive_usrno" column="RECIVE_USRNO"/>
+		<result property="content" column="CONTENT"/>
+		<result property="isRead" column="ISREAD"/>
+		<result property="send_date" column="SEND_DATE"/>
+		<result property="reciveNo" column="RECIVENO"/>
+		<result property="filePath" column="FILEPATH"/>
+		<result property="sysName" column="SYSNAME"/>
+		<result property="nickName" column="NICKNAME"/>
+	</resultMap>
+	
+	<select id="getUserList" parameterType="int" resultMap="memberMap">
+		SELECT USR_NO, ID, FILEPATH, SYSNAME, NICKNAME
+  		  FROM TBLUSERINFO
+ 		 WHERE USR_NO != #{myUserNo}
+ 		 ORDER BY NICKNAME
+	</select>
+	
+	<select id="getUserListCount" parameterType="int" resultType="int">
+		SELECT count(*)
+  		  FROM TBLUSERINFO
+ 		 WHERE USR_NO != #{myUserNo}
+ 		 ORDER BY NICKNAME
+	</select>
+	
+	<select id="roomCnt" parameterType="string" resultType="int">
+		SELECT count(*)
+  		  FROM CHATROOM
+ 		 WHERE ENTER_USRNO = #{roomNo}
+	</select>
+	
+	<insert id="insertRoom" parameterType="chatRoomVO">
+		<selectKey keyProperty="cno" resultType="int" order="BEFORE">
+			SELECT ChatNo.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO CHATROOM(CNO,ENTER_USRNO,USER_LIST,CREATEDATE)
+		VALUES(#{cno},#{enter_usrno},#{user_list},sysdate)
+	</insert>
+	
+	<select id="getChatRoom" parameterType="string" resultMap="chatRoomMap">
+		SELECT *
+  		  FROM CHATROOM
+ 		 WHERE ENTER_USRNO = #{roomNo}
+	</select>
+	
+	<select id="chatRoomDetailCount" parameterType="int" resultType="int">
+		SELECT NVL(MAX(CHAT_SEQ),0) 
+		  FROM CHATROOMDETAIL 
+		 WHERE CNO = #{cno}
+	</select>
+	
+	<insert id="insertSendMsg" parameterType="chatRoomDetailVO">
+		INSERT INTO CHATROOMDETAIL(CNO, CHAT_SEQ, SEND_USRNO, CONTENT, SEND_DATE)
+		VALUES (#{cno}, #{chat_seq}, #{send_usrno}, #{content}, sysdate)
+	</insert>
+	
+	<insert id="insertReciveUser" parameterType="chatRoomDetailVO">
+		INSERT INTO MSGRECIVEUSER(CNO, CHAT_SEQ, USR_NO)
+		VALUES (#{cno}, #{chat_seq}, #{reciveNo})
+	</insert>
+	
+	<select id="getSendMsgOne" parameterType="chatRoomDetailVO" resultMap="chatRoomDetailMap">
+		SELECT CNO, 
+		       CHAT_SEQ, 
+		       SEND_USRNO, 
+		       B.NICKNAME,
+		       B.FILEPATH,
+		       B.SYSNAME,
+		       CONTENT, 
+		       TO_CHAR(SEND_DATE, 'HH24:mi') as SEND_DATE, 
+		       NVL((SELECT COUNT(*) FROM MSGRECIVEUSER WHERE CNO = #{cno} AND CHAT_SEQ = #{chat_seq} AND READ_YN = 'N'),0) AS ISREAD 
+		  FROM CHATROOMDETAIL A, TBLUSERINFO B
+		 WHERE A.SEND_USRNO = B.USR_NO
+		   AND A.CNO = #{cno}
+		   AND A.CHAT_SEQ = #{chat_seq}
+	</select>
+	
+	<select id="getChatMsgList" parameterType="chatRoomDetailVO" resultMap="chatRoomDetailMap">
+		SELECT CNO, 
+		       CHAT_SEQ, 
+		       SEND_USRNO, 
+		       B.NICKNAME,
+		       B.FILEPATH,
+		       B.SYSNAME,
+		       CONTENT, 
+		       TO_CHAR(SEND_DATE, 'HH24:mi') as SEND_DATE, 
+		       NVL((SELECT COUNT(*) FROM MSGRECIVEUSER WHERE CNO = #{cno} AND CHAT_SEQ = A.CHAT_SEQ AND READ_YN = 'N'),0) AS ISREAD 
+		  FROM CHATROOMDETAIL A, TBLUSERINFO B
+		 WHERE A.SEND_USRNO = B.USR_NO
+		   AND A.CNO = #{cno}
+		 ORDER BY CHAT_SEQ
+	</select>
+	
+	<update id="readMsg" parameterType="hashmap">
+		UPDATE MSGRECIVEUSER
+		   SET READ_YN = 'Y'
+		 WHERE USR_NO = #{usr_no}
+		   AND CNO = #{cno}
+	</update>
+</mapper>

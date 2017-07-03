@@ -1,0 +1,170 @@
+/* 아이폰 6 가로 */
+@media only screen and (min-device-width : 375px) and (max-device-width : 736px) {
+	body {overflow-y: hidden}
+	body, html {height: 100%; width: 100%; overflow-y: hidden}
+	.desktop {display: none;}
+	.phone {display: block;}
+	.headerMenu {width: 100%; height: 7em; position: absolute; padding: 0; left: 0%; box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.48);}
+	.phoneRow{height: 100%}
+	.move {width : 100%; height : 100%; position: absolute; left: 0%;}
+	.btn-xlarge{height: 100%; width: 50%; font-size: 150%; background-color: #f0edf2; border: none}
+	.menuBar {width: 70%; height: 100%; position: absolute; top: 0px; left: -70%; background-color: #424242; z-index: 200;}
+	.move, .menuBar {float: left;}
+ 	.menuClear {width: 100%; height: 100%; background-color: black; position: absolute; left: 0%;opacity: 0.1; display: none; z-index: 100}
+	.menuBarView {width: 65%; height: 100%; background-color: #424242;}
+	.loginMenu{width: 100%; height: 30%; background-color: #424242; text-align: center;}
+	.phoneHeader {width : 100%;height: 100%; background-color: rgba(68, 114, 148, 1);  position: absolute; z-index: 99;}
+    .phoneMainHeader {height: 4em; background-color: rgba(255,255,255,.0); width: 100%; position: fixed; z-index: 2}
+    .phoneBody {width : 100%; height : 92%; padding: 0; margin: 0; overflow-x: hidden; position: absolute; left: 0; background-color: #f7f7f7; top: 4em;}
+    .headerDiv {width: 100%;  overflow-x: hidden; position: fixed; left: 0; z-index: 0}
+    .sideMenu {width: 100%; height: 8%; margin-top: 1%;border-bottom: 1px solid #f0edf2;}
+    .sideIconText {font-size:110%; color: #f0edf2;}
+    .sideText {font-family: Helvetica Neue,Helvetica,Arial,sans-serif; padding-left: 4%}
+    .sideALink {padding-left: 10%; line-height: 2.5;}
+    .phoneBodyContent {width: 100%; height: 677.11px; position: absolute; left : 0%; background-color: #f7f7f7; z-index: 1;}
+    .radius {width: 60%; height: 60%; background-color: rgba(68, 114, 148, 1); border-radius: 50%; margin-left: 20%; text-align: center;}
+    .asd, .asdf {float: left}
+    .phoneLogin {position: absolute; left: 0%; z-index: 2; width: 100%; height: 100%}
+    .loginText {display: none;}
+    #loginFormInput {width: 90%; height: 120px; font-size: 60px}
+    .phoneLow {height: 100%;}
+    .loginFrmCss {height: 100%;}
+    .inputCss {width: 100%}
+    .sortDiv {width: 5%; height: 120px}
+    .sortDiv, #loginFormInput {float: left;}
+    .formInterval {margin-top: 3%}
+    .phoneImg {width: 100%; height: 60%}
+    #loginFrm {height: 40%}
+    .formInterval2 {margin-left: 2% !important}
+    .phoneBtn {width: 44%; height: 23%; font-size: 40px; line-height: 2.5; margin-left: 5%; float: left;}
+    .loginFrmDisplay {position: absolute; top: 8%; left: 0%; z-index: 2; width: 100%; height: 70%; overflow-x: hidden; display: none}
+    .sideTextLogin {font-family: Helvetica Neue,Helvetica,Arial,sans-serif;}
+    .menuBarTitle {padding-left: 10%}
+    .levelImg {width: 128px; height: 128px; background-size: 128px}
+    .levelImg2 {width: 128px; height: 64px; position: absolute; top : 60%; background-size: 128px}
+    .userLevel {position: absolute; left: 20%}
+    .userRank {position: absolute; left: 50%; text-align: left;}
+    .userRankValue {position: absolute; left: 15%; top: 88%}
+    .fontWhite {color : #f0edf2;}
+    .overwatchBackground {width: 100%; height: 35em; text-align: center; background-color: #293347; box-shadow: 0px 5px 21px rgba(0, 0, 0, 0.59); margin-top : 2%;}
+    .overwatchContent {width: 100%; height: 950px; background-color: #293347; margin-top: 4%}
+    .isNormalTearBtnLine {width: 100%; height: 5%; position: absolute; top: 4%}
+    .col-2 {width: 20%; height: 100%; float: left}
+    .col-6 {width: 60%; height: 100%; float: left}
+    .isNormalBtn, .isTearBtn {float: left; width: 40%; height: 100%; border: 1px solid #f0edf2; line-height: 2.3}
+    .isNormalBtn > span, .isTearBtn > span {font-size: 100%; font-weight: bold; text-align: center; color: #f0edf2;}
+    .btnCenter {width: 100%; height : 100%; text-align: center; margin-left: 10%}
+    .BtnActive {background-color: #f0edf2;}
+    .BtnActive > span {color : #293347}
+    .statsTitle {width: 100%;  position: absolute; top: 20%; text-align: center;}
+    .statsTitle > span {font-size: 300%; color: #f0edf2; font-weight: bold;}
+    .col-3per {width: 3%; height: 100%; float: left}
+    .col-94per {width: 94%; height: 100%; float: left; position: absolute; left: 3%}
+    .lineStyle{position: absolute; width: 100%; top : 28%;}
+    .statsContent {width: 100%; height : 65%; position: absolute; top : 35%;}
+    .statsTable {width: 100%; background-color: #f0edf2;}
+    .statsTable > tbody > tr > td {color: #f0edf2; font-size: 120%; height: 45px;}
+    .statsTable > tbody > tr > th {color: #f0edf2; font-size: 140%; width: 50%; background-color: #c6cbde; height: 50px; color: #293347}
+    .statsTable > tbody > tr {height: 10%}
+    .statsTable > tbody > tr > td:nth-child(1) {color: #727272; float: left; margin-top: 3%; margin-left: 4%}
+    .statsTable > tbody > tr > td:nth-child(2) {color: #00a5e2; float: right; margin-top: 3%; margin-right: 4%; font-size: 120%}
+    .highHeroData {width: 100%; background-color: #293347; padding-left: 3%; padding-right: 3%}
+    .highHeroText {width: 100%; text-align: center}
+    .highHeroText > span {font-size: 300%; color: #f0edf2; font-weight: bold;}
+    .highHeroSortType {width: 40%; font-size: 20px;}
+    .highHeroSortType > option {font-size: 20px;}
+   	#heroImg, .heroBar {float: left}
+   	.heroBar {margin-bottom : 0;margin-left: 2%; width: 83%; background-image: linear-gradient(to bottom,rgba(24,34,62,.7) 0,rgba(24,34,62,.7) 100%) !important}
+   	.percentBar {border-radius: 1em}
+   	.heroName > span, .heroValue > span {font-size: 120%; color: #f0edf2;}
+   	.heroValue {text-align: right;}
+   	.heroName > span {margin-left: 5%}
+   	.heroValue > span {margin-right: 5%}
+   	.heroName, .heroValue {width : 50%;float: left; padding-right: 3%}
+   	.heroText {width: 83%; position: absolute; left: 17%; line-height: 3.3}
+   	.moreHeroDiv {width: 100%; margin-top: 3em; height: 200px}
+   	.moreHeroDiv > div {width: 40%; margin-left: 30%; text-align: center; border: 2px solid #f0edf2;}
+   	.moreHeroDiv > div > span {font-size: 120%; color: #f0edf2;}
+   	.highHeroData, .heroDeatilStats {float: inherit}
+   	.heroDeatilStats {width: 100%; background-color: #293347; padding-left: 3%; padding-right: 3%}
+   	.heroDetailTable {width: 100%; background-color: #f0edf2;}
+    .heroDetailTable > tbody > tr > td {color: #f0edf2; font-size: 100%; padding: 2% 4% 2% 4%}
+    .heroDetailTable > tbody > tr > th {color: #f0edf2; font-size: 140%; width: 50%; background-color: #c6cbde; height: 50px; color: #293347; text-align: left; padding-left: 5%}
+    .heroDetailTable > tbody > tr {height: 10%}
+    .heroDetailTable > tbody > tr > td:nth-child(1) {color: #727272; float: left;}
+    .heroDetailTable > tbody > tr > td:nth-child(2) {color: #00a5e2; float: right;}
+    .activementDiv {width: 100%; margin-top: 10em}
+    .aImg {float: left; border: 4px solid hsla(0,0%,100%,.3); width: 44%; margin-left: 4%; margin-bottom: 4%; position: relative;}
+    .activeNameTxt {width: 100%; background-color: rgba(3,20,26,.75); position: relative; bottom : 0em; text-align: center; line-height: 2.5; font-size: 110%; color: #f0edf2; overflow:hidden; position: absolute;}
+    .activeNameTxt > span {font-size: 240%; color: #f0edf2;}
+/*     .aImg:active {border-color: #00c3ff; box-shadow: inset 0 0 60px 0 rgba(0,195,255,.3);} */
+    .bubble { position: absolute; width: 214%; padding: 0px; background: #3c4860; -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px; display: none; z-index: 3; top: 110%}
+	.bubble:after { content: ''; position: absolute; border-style: solid; border-width: 0 25px 25px; border-color: #3c4860 transparent; display: block; width: 0; z-index: 1; top: -25px; left: 15%;}
+    .rightBubble { position: absolute; width: 214%; padding: 0px; background: #3c4860; -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px; display: none; z-index: 3; left : -114%; top: 110%}
+	.rightBubble:after { content: ''; position: absolute; border-style: solid; border-width: 0 25px 25px; border-color: #3c4860 transparent; display: block; width: 0; z-index: 1; top: -25px; left: 70%;}
+	.activeDetailNameTxt {width: 100%; padding-top: 5%;}
+	.activeDetailNameTxt > span {font-size: 130%; font-weight: bold; color: #f0edf2; margin-left: 5%}
+	.activeDetailContentTxt {width: 90%;}
+	.activeDetailContentTxt {font-size: 110%; color: #f0edf2; margin-left: 5%; word-break: break-all;}
+ 	.clickActive {width: 100%;height: 100%;background-color: rgba(0,195,255,.3);position: absolute; visibility: hidden; top: 0} 
+ 	.boardTable > tbody > tr > td {font-size: 150%; color: #2b2b2b}
+ 	.boardTable > tbody > tr > td:nth-child(1) {text-align: left; padding-left: 5%; border-right: 1px solid #d6d6d6}
+ 	.boardTable > tbody > tr > td:nth-child(2) {text-align: center; font-size: 120%; background-color: #fbfbfb}
+ 	.boardTable > tbody > tr {border-bottom: 1px solid #d6d6d6; height: 5em}
+ 	.writeTxt, .dateTxt, .viewCnt {float: left; font-size: 50%; color: #808080}
+ 	.dateTxt, .viewCnt {margin-left: 1em}
+ 	.boardTableDiv {width: 100%; background-color: #fdfdfd; padding: 0 3% 0 3%}
+ 	.phoneABtn {color: #2b2b2b}
+ 	#hiddenTxt {font-size: 150%; width: 100%; text-align: left; margin-bottom: 1em} 
+ 	.phoneRow {width: 100%;}
+ 	.pForm-control {width: 100%; height: 45px; font-size: 23px}
+ 	.col-80per {width: 80%}
+ 	.col-20per {width: 20%}
+ 	.col-80per, .col-20per {float: left}
+ 	.check-Btn {width: 100%; height: 45px; padding: 0; font-size: 20px; line-height: 2.2}
+ 	.pForm-group {margin-top: 3em;}
+ 	.col-100per {width: 100%;}
+ 	.col-70per {width: 70%; float: left; margin-left: 15%}
+ 	.col-15per {width: 15%; float: left}
+ 	.thumbnail > img {width: 100%}
+ 	.fileBtn {font-size: 150%; margin-left: 5%}
+ 	.col-100per {width: 100%;}
+ 	.fileDiv {margin-top: 0}
+ 	.margin0 {margin-left: 0; width: 100%;}
+ 	.signBtnCss {font-size: 150%; width: 30%; line-height: 1.7; margin-left: 2%}
+ 	.selectStyle {color: white; background-color: #293347}
+ 	.searchBoard{width: 100%; height: 3em; border-bottom: 1px solid #d6d6d6; background-color: white; z-index: 2; position: fixed; padding-left: 3%; padding-right: 3%}
+ 	.boardMore{width: 100%; background-color: white; text-align: center;}
+ 	.writeFrmPhone {padding: 5% 3% 8% 3%}
+ 	.pInput {height: 45px; font-size: 23px}
+ 	.writeFrmTxt {padding-left: 0; margin-bottom: 5px; font-size: 130%; width: 100%; }
+ 	.writeFrm {margin-bottom: 2em} 
+ 	.userSearch { margin-top: 1%; background-color: white; border-bottom: 1px solid #d6d6d6; padding: 1em 0 1em 0}
+ 	.searchIcon {background-color: white; border: none; font-size: 23px}
+ 	.myProfile, .userProfile {background-color: white;}
+ 	.userList {width: 100%}
+ 	.userList > tbody > tr:nth-child(1) > td {border-bottom: 1px solid #d6d6d6; padding: 1em; font-size: 12px; color: #888888; font-weight: bold; width: 100%; text-align: left;}
+ 	.userInfo > td:nth-child(1) {padding: 1.5em 1.5em 1.5em 1em; text-align: left;}
+ 	.userInfo > td:nth-child(2) {text-align: left; font-size: 1em; font-weight: bold; color: #737373}
+ 	.userInfo > td:nth-child(1) > img {width: 60px; height: 60px; border-radius: 50%} 
+ 	.chatnav {margin-bottom: 0}
+ 	.chatContent {padding: 0.5em 1em 0.5em 0.5em; margin-right: 8px; margin-top: 0.5em; position: relative;background: #FFFFFF;-webkit-border-radius: 7px;-moz-border-radius: 7px;border-radius: 7px;}
+	.chatContent:after {content: '';position: absolute;border-style: solid;border-width: 5px 0 5px 10px;border-color: transparent #FFFFFF;display: block;width: 0;z-index: 1;margin-top: -5px;right: -10px;top: 51%;}
+	.messageDate, .chatContent {float: right;}
+	.messageDate {margin-top: 5.5%; margin-right: 5px}
+	.chatMessage:after{content:'';display:block;clear:both;}
+	
+	.userChatContent {margin-top: 0.5em; position: relative;padding: 0px;background: #FFFFFF;-webkit-border-radius: 7px;-moz-border-radius: 7px;border-radius: 7px;}
+	.userChatContent:after {content: '';position: absolute;border-style: solid;border-width: 5px 10px 5px 0;border-color: transparent #FFFFFF;display: block;width: 0;z-index: 1;margin-top: -5px;left: -10px;top: 51%;}
+	#userThumbnail, .userMessageDate, .chatUsr {float: left;}
+	.userChatMessage:after{content:'';display:block;clear:both;}
+	.userChatMessage {margin: 1em 0 1em 0}
+ 	
+}
+ 
+@media only screen and (min-width : 1025px) {
+} 
+
+.loader { position: absolute; left: 50%; top: 50%; z-index: 1; width: 150px; height: 150px; margin: -75px 0 0 -75px; border: 16px solid #f3f3f3; border-radius: 50%; border-top: 16px solid #3498db; width: 120px; height: 120px; -webkit-animation: spin 2s linear infinite; animation: spin 2s linear infinite; } @-webkit-keyframes spin { 0% { -webkit-transform: rotate(0deg); } 100% { -webkit-transform: rotate(360deg); } } @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+.loadingBackground {width: 100%; height: 100%; position: absolute; top: 0%; left: 0%; background-color: #404040; opacity: .3; display: none;}
+.lodingImg {-webkit-user-select: none;background-position: 0px 0px, 10px 10px;background-size: 20px 20px;background-image:linear-gradient(45deg, #eee 25%, transparent 25%, transparent 75%, #eee 75%, #eee 100%),linear-gradient(45deg, #eee 25%, white 25%, white 75%, #eee 75%, #eee 100%);}

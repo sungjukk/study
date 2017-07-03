@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.mlec.boardMapper">
+	<resultMap type="boardVO" id="boardMap">
+		<result property="bnum" column="BNUM"/>
+		<result property="board_no" column="BOARD_NO"/>
+		<result property="board_type" column="BOARD_TYPE"/>
+		<result property="title" column="TITLE"/>
+		<result property="content" column="CONTENT"/>
+		<result property="writer" column="WRITER"/>
+		<result property="usr_no" column="USR_NO"/>
+		<result property="reg_date" column="REG_DATE"/>
+		<result property="cnt" column="CNT"/>
+		<result property="c_count" column="C_COUNT"/>
+	</resultMap>
+	<resultMap type="fileVO" id="fileMap">
+		<result property="board_no" column="BOARD_NO"/>
+		<result property="board_type" column="BOARD_TYPE"/>
+		<result property="file_no" column="FILE_NO"/>
+		<result property="filePath" column="FILEPATH"/>
+		<result property="oriName" column="ORINAME"/>
+		<result property="sysName" column="SYSNAME"/>
+	</resultMap>
+	<resultMap type="commentVO" id="commentMap">
+		<result property="cno" column="CNO"/>
+		<result property="comment_no" column="COMMENT_NO"/>
+		<result property="board_no" column="BOARD_NO"/>
+		<result property="usr_no" column="USR_NO"/>
+		<result property="content" column="CONTENT"/>
+		<result property="reg_date" column="REG_DATE"/>
+		<result property="id" column="ID"/>
+		<result property="filePath" column="FILEPATH"/>
+		<result property="sysName" column="SYSNAME"/>
+		<result property="first_seq" column="FIRST_SEQ"/>
+		<result property="sec_seq" column="SEC_SEQ"/>
+		<result property="parents_no" column="PARENTS_NO"/>
+		<result property="del_yn" column="DEL_YN"/>
+		<result property="cGroup" column="CGROUP"/>		
+		<result property="nickName" column="NICKNAME"/>		
+	</resultMap>
+	<select id="boardCount" resultType="int" parameterType="hashmap">
+		SELECT COUNT(*) 
+		  FROM TBLBOARD A, TBLUSERINFO C
+		 WHERE A.USR_NO = C.USR_NO
+		  <if test="searchType != null">
+			<choose>
+				<when test="searchType == 'title'">
+					AND A.TITLE LIKE '%' ||  #{searchContent} || '%'
+				</when>
+				<when test="searchType == 'writer'">
+					AND C.NICKNAME = #{searchContent}
+				</when>
+			</choose>
+		   </if>
+	</select>
+	<select id="boardList" resultMap="boardMap" parameterType="hashmap">
+		SELECT * 
+		  FROM (SELECT ROWNUM AS RNUM, BNUM, BOARD_NO, BOARD_TYPE, TITLE, CONTENT, WRITER, REG_DATE, CNT, (SELECT COUNT(*) AS C_COUNT FROM TBLCOMMENT WHERE BOARD_NO = B.BOARD_NO AND DEL_YN = 'N') AS C_COUNT
+		          FROM (SELECT ROW_NUMBER() OVER (ORDER BY REG_DATE) AS BNUM, BOARD_NO, BOARD_TYPE, TITLE, CONTENT, REG_DATE, A.USR_NO, CNT, C.NICKNAME as WRITER 
+		                  FROM TBLBOARD A, TBLUSERINFO C
+		                 WHERE A.USR_NO = C.USR_NO
+		                 <if test="searchType != null">
+		                 	<choose>
+		                 		<when test="searchType == 'title'">
+		                 			AND A.TITLE LIKE '%' ||  #{searchContent} || '%'
+		                 		</when>
+		                 		<when test="searchType == 'writer'">
+		                 			AND C.NICKNAME = #{searchContent}
+		                 		</when>
+		                 	</choose>
+		                 </if>
+		                 ORDER BY REG_DATE DESC) B) 
+		 WHERE RNUM &gt;= #{pageInfo.fCnt} 
+		   AND RNUM &lt;= #{pageInfo.lCnt}
+	</select>
+
+	<insert id="insertBoard" parameterType="boardVO">
+		<selectKey keyProperty="board_no" resultType="int" order="BEFORE">
+			SELECT board_no.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO TBLBOARD(BOARD_NO,TITLE,CONTENT,USR_NO,REG_DATE)
+		VALUES(#{board_no},#{title},#{content},#{usr_no},sysdate)
+	</insert>
+	
+	<select id="detailBoard" resultMap="boardMap" parameterType="int">
+		SELECT A.*, B.NICKNAME AS WRITER, (SELECT COUNT(*) FROM TBLCOMMENT WHERE BOARD_NO = A.BOARD_NO AND DEL_YN = 'N') AS C_COUNT  
+		  FROM TBLBOARD A, TBLUSERINFO B
+		 WHERE A.USR_NO = B.USR_NO
+		   AND BOARD_NO = #{no}
+	</select>
+	
+	<update id="updateBoard" parameterType="boardVO">
+		UPDATE TBLBOARD
+		   SET TITLE = #{title},
+		       CONTENT = #{content},
+		       REG_DATE = sysdate
+		 WHERE BOARD_NO = #{board_no}
+	</update>
+	
+	<delete id="deleteBoard" parameterType="int">
+		DELETE TBLBOARD
+		 WHERE BOARD_NO = #{no}
+	</delete>
+	
+	<update id="upCnt" parameterType="int">
+		UPDATE TBLBOARD
+		   SET CNT = CNT + 1
+		 WHERE BOARD_NO = #{no}
+	</update>
+	
+	<insert id="insertFile" parameterType="fileVO">
+		INSERT INTO TBLFILEBOARD(FILE_NO, BOARD_NO, BOARD_TYPE, FILEPATH, ORINAME, SYSNAME)
+		VALUES(FILE_NO.NEXTVAL, #{board_no}, #{board_type}, #{filePath}, #{oriName}, #{sysName})
+	</insert>
+	
+	<select id="getBoardFile" resultMap="fileMap" parameterType="boardVO">
+		SELECT * 
+		  FROM TBLFILEBOARD 
+		 WHERE BOARD_NO = #{board_no} 
+		   AND BOARD_TYPE = #{board_type}
+	</select>
+	
+	<select id="commentList" resultMap="commentMap" parameterType="int">
+		SELECT A.*, B.ID, B.NICKNAME, B.FILEPATH, B.SYSNAME
+          FROM TBLCOMMENT A, TBLUSERINFO B
+ 		 WHERE BOARD_NO = #{no}
+  		   AND A.USR_NO = B.USR_NO
+ 		 ORDER BY CGROUP DESC, SEC_SEQ ASC
+	</select>
+	
+	<select id="selectOneComment" resultMap="commentMap" parameterType="int">
+		SELECT A.*, B.ID, B.NICKNAME, B.FILEPATH, B.SYSNAME  
+          FROM TBLCOMMENT A, TBLUSERINFO B
+         WHERE COMMENT_NO = #{no}
+           AND A.USR_NO = B.USR_NO
+	</select>
+	
+	<insert id="insertComment" parameterType="commentVO">
+		<selectKey keyProperty="comment_no" resultType="int" order="BEFORE">
+			SELECT COMMENT_NO.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO TBLCOMMENT(COMMENT_NO,BOARD_NO,USR_NO,CONTENT,PARENTS_NO,CGROUP,REG_DATE)
+		SELECT #{comment_no},#{board_no},#{usr_no},#{content},0,NVL(Max(cgroup) + 1,1),sysdate
+		  FROM TBLCOMMENT
+		 WHERE BOARD_NO = #{board_no}
+	</insert>
+	
+	<delete id="delComment" parameterType="int">
+		DELETE
+		  FROM TBLCOMMENT
+		 WHERE COMMENT_NO = #{comment_no}
+	</delete>
+	
+	<update id="updateComment" parameterType="commentVO">
+		UPDATE TBLCOMMENT
+		   SET CONTENT = #{content}
+		 WHERE COMMENT_NO = #{comment_no}
+	</update>
+	
+	<select id="getParentsCommentNo" parameterType="int" resultType="int">
+		SELECT PARENTS_NO
+		  FROM TBLCOMMENT
+		 WHERE COMMENT_NO = #{no}
+	</select>
+	
+	<insert id="insertCommentOfComment" parameterType="commentVO">
+		<selectKey keyProperty="comment_no" resultType="int" order="BEFORE">
+			SELECT COMMENT_NO.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO TBLCOMMENT(COMMENT_NO,BOARD_NO,USR_NO,CONTENT,PARENTS_NO,FIRST_SEQ,SEC_SEQ,CGROUP,REG_DATE)
+		SELECT #{comment_no},#{board_no},#{usr_no},#{content},#{parents_no},#{first_seq},#{sec_seq},CGROUP,sysdate
+		  FROM TBLCOMMENT
+		 WHERE COMMENT_NO = #{parents_no}
+	</insert>
+	
+	<update id="updateCommentSeq" parameterType="commentVO">
+		UPDATE TBLCOMMENT
+		   SET
+           <choose>
+         	<when test="cno == 1">
+         		SEC_SEQ = SEC_SEQ + 1
+         	</when>
+         	<otherwise>
+         		SEC_SEQ = SEC_SEQ - 1
+         	</otherwise>
+         </choose>
+         WHERE 
+         <choose>
+         	<when test="cno == 1">
+         		SEC_SEQ >= #{sec_seq}
+         	</when>
+         	<otherwise>
+         		SEC_SEQ >= (SELECT SEC_SEQ 
+                              FROM TBLCOMMENT 
+                             WHERE COMMENT_NO = #{parents_no})
+         	</otherwise>
+         </choose>
+           AND CGroup = (SELECT CGroup 
+                               FROM TBLCOMMENT 
+                              WHERE COMMENT_NO = #{parents_no})
+	</update>
+	
+	<update id="delCommentY" parameterType="int">
+		UPDATE TBLCOMMENT
+		   SET DEL_YN = 'Y'
+		 WHERE COMMENT_NO = #{comment_no}
+	</update>
+	
+	<select id="commentCount" parameterType="int" resultType="int">
+		SELECT COUNT(*)
+		  FROM TBLCOMMENT
+		 WHERE BOARD_NO = #{no}
+		   AND DEL_YN = 'N'
+	</select>
+	
+	<select id="isChildComment" parameterType="int" resultType="commentVO">
+		SELECT A.* 
+		  FROM TBLCOMMENT A, (SELECT PARENTS_NO,FIRST_SEQ, SEC_SEQ 
+		                        FROM TBLCOMMENT 
+		                       WHERE COMMENT_NO = #{comment_no}) B
+		 WHERE A.PARENTS_NO = B.PARENTS_NO
+		   AND A.SEC_SEQ = B.SEC_SEQ + 1
+		   AND A.FIRST_SEQ > B.FIRST_SEQ
+		   AND A.DEL_YN = 'N'
+	</select>
+	
+	<select id="isChild" parameterType="commentVO" resultType="int">
+		SELECT COUNT(*) 
+		  FROM TBLCOMMENT 
+		 WHERE PARENTS_NO = #{comment_no}
+           AND FIRST_SEQ > (SELECT FIRST_SEQ FROM TBLCOMMENT WHERE COMMENT_NO = #{comment_no})
+	</select>
+	
+	<select id="isBrother" parameterType="int" resultType="commentVO">
+		SELECT * 
+		  FROM TBLCOMMENT 
+		 WHERE COMMENT_NO != #{no} 
+		   AND PARENTS_NO = (SELECT PARENTS_NO FROM TBLCOMMENT WHERE COMMENT_NO = #{no}) 
+		   AND ROWNUM = 1
+	</select>
+
+</mapper>

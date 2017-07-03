@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<setting name="mapUnderscoreToCamelCase" value="true"/>	
+	</settings>
+	
+	<typeAliases>
+		<typeAlias type="kr.co.mlec.vo.BoardVO" alias="boardVO"/>
+		<typeAlias type="kr.co.mlec.vo.PageVO" alias="pageVO"/>
+		<typeAlias type="kr.co.mlec.vo.FileVO" alias="fileVO"/>
+		<typeAlias type="kr.co.mlec.vo.MemberVO" alias="memberVO"/>
+		<typeAlias type="kr.co.mlec.vo.CommentVO" alias="commentVO"/>
+		<typeAlias type="kr.co.mlec.vo.ChatRoomVO" alias="chatRoomVO"/>
+		<typeAlias type="kr.co.mlec.vo.ChatRoomDetailVO" alias="chatRoomDetailVO"/>
+	</typeAliases>
+</configuration>
