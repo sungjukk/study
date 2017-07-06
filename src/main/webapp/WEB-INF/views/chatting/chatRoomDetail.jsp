@@ -17,10 +17,10 @@
 	});
 </script>
 <body>
-	<div style="width: 100%; height: 100%;top: 0px; left: 0px;z-index: 10; position: absolute;">
-		<button type="button" class="close" aria-label="Close" style="font-size: 40px; color: white; position: absolute; left: 92%; top: 1%; z-index: 11; opacity: .8"><span aria-hidden="true">&times;</span></button>
-		<div style="width: 100%; position: absolute; top: 25%; z-index: 11; height: 50%;">
-			<img src="/image?file=/2017/07/06/2017070697df53f7-6711-47e7-9f78-e67662172bd6.jpg">
+	<div class="showChatImg" style="width: 100%; height: 100%;top: 0px; left: 0px;z-index: 10; position: absolute; display: none; overflow-y: auto">
+		<button type="button" onclick="javascript:$('.showChatImg').hide()" class="close" aria-label="Close" style="font-size: 40px; color: white; position: fixed; left: 92%; top: 1%; z-index: 15; opacity: .8"><span aria-hidden="true">&times;</span></button>
+		<div class="chatImgDiv" style="width: 100%; top: 25%; z-index: 11; height: 50%; position: relative;">
+			<img src="" style="width: 100%" class="viewChatImg"> 
 		</div>
 		<div style="width: 100%; height: 100%;top: 0px; left: 0px; background-color : black; position: absolute; opacity: 0.6"></div>
 	</div>

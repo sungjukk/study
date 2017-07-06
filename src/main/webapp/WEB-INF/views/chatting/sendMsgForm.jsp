@@ -15,7 +15,7 @@
 						<c:otherwise>
 							<c:choose>
 								<c:when test="${sendMsg.content == 'img'}">
-									<img src="/image?file=${sendMsg.sendFilePath}/${sendMsg.sendSysName}" style="width: 100%" id="sendImg" />
+									<img src="/image?file=${sendMsg.sendFilePath}/${sendMsg.sendSysName}" style="width: 100%" id="sendImg" onclick="showChatImg('${sendMsg.sendFilePath}/${sendMsg.sendSysName}')" />
 								</c:when>
 								<c:otherwise>
 									<div style="width: 100%; text-align: center;">
@@ -47,7 +47,7 @@
 							<c:otherwise>
 								<c:choose>
 									<c:when test="${sendMsg.content == 'img'}">
-										<img src="/image?file=${sendMsg.sendFilePath}/${sendMsg.sendSysName}" style="width: 100%" id="sendImg" />
+										<img src="/image?file=${sendMsg.sendFilePath}/${sendMsg.sendSysName}" style="width: 100%" id="sendImg" onclick="showChatImg('${sendMsg.sendFilePath}/${sendMsg.sendSysName}')" />
 										<a href="/download/${sendMsg.file_no}" style="font-size: 12px">¿˙¿Â</a>
 									</c:when>
 									<c:otherwise>

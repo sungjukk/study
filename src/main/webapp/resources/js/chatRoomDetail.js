@@ -124,3 +124,16 @@ function chatFileUpload() {
 		});
 	});
 }
+
+
+function showChatImg(imgPath) {
+	$(".showChatImg").show();
+	$(".viewChatImg").attr('src','/image?file='+imgPath);
+	$(".viewChatImg").on('load', function () {
+		console.log($(".viewChatImg").height());
+		console.log($(".chatImgDiv").height());
+		var margin = ($(".chatImgDiv").height() - $(".viewChatImg").height())/2;
+		if (margin < -184) margin = -184;
+		$(".viewChatImg").css("margin-top",margin + "px");
+	});
+}
