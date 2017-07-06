@@ -26,7 +26,8 @@
 		<div class="phoneBodyContent">
 			<div class="row">
 				<div class="col-md-1"></div>
-				<div class="col-md-9"></div>
+				<div class="col-md-9">
+				</div>
 				<div class="col-md-1"></div>
 			</div>
 		</div>

@@ -137,3 +137,13 @@ function showChatImg(imgPath) {
 		$(".viewChatImg").css("margin-top",margin + "px");
 	});
 }
+
+
+function chatVideoPlay(seq) {
+	var video = document.getElementById("chatVideo" + seq);
+	if(video.paused) {
+		video.play();		
+	} else {
+		video.pause();
+	}
+}

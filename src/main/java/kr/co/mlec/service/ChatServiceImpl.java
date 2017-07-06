@@ -26,6 +26,7 @@ public class ChatServiceImpl implements ChatService {
 	private ChatDao dao;
 	
 	private final String imgExt[] = {".jpg",".png",".jpeg",".gif"}; 
+	private final String videoExt = ".mp4";
 
 	@Override
 	public List<MemberVO> getUserList(int myUserNo) throws Exception {
@@ -119,9 +120,15 @@ public class ChatServiceImpl implements ChatService {
 		cdVO.setFile_no(dao.insertFile(fv));
 		System.out.println(cdVO.getFile_no());
 		boolean isImg = false;
+		boolean isVideo = false;
 		for (String ext : imgExt) {
 			if (fv.getExt().toLowerCase().equals(ext.toLowerCase())) {
 				isImg = true;
+				break;
+			}
+			
+			if (fv.getExt().toLowerCase().equals(videoExt.toLowerCase())) {
+				isVideo = true;
 				break;
 			}
 		}
@@ -129,6 +136,9 @@ public class ChatServiceImpl implements ChatService {
 			cdVO.setContent("img");
 		} else {
 			cdVO.setContent("file");
+		} 
+		if (isVideo == true) {
+			cdVO.setContent("video"); 
 		}
 		
 		//메세지 저장

@@ -17,6 +17,18 @@
 								<c:when test="${sendMsg.content == 'img'}">
 									<img src="/image?file=${sendMsg.sendFilePath}/${sendMsg.sendSysName}" style="width: 100%" id="sendImg" onclick="showChatImg('${sendMsg.sendFilePath}/${sendMsg.sendSysName}')" />
 								</c:when>
+								<c:when test="${sendMsg.content == 'video'}">
+									<video id="chatVideo${sendMsg.chat_seq}" style="width: 100%" onclick="chatVideoPlay(${sendMsg.chat_seq})">
+										<source src="/resources/images/test.mp4" type="video/mp4">
+									</video>
+									<a href="/chat/player">asfdaf</a>
+								</c:when>
+								<c:when test="${sendMsg.content == 'mov'}">
+									<video id="chatVideo${sendMsg.chat_seq}" style="width: 100%" onclick="chatVideoPlay(${sendMsg.chat_seq})">
+										<source src="/download/${sendMsg.file_no}" type="video/mp4">
+									</video>
+									<a href="/chat/player">asfdaf</a>
+								</c:when>
 								<c:otherwise>
 									<div style="width: 100%; text-align: center;">
 										<img src="/resources/images/documentIcon.png" style="width: 40px" id="sendImg">

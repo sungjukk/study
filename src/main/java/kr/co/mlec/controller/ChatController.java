@@ -135,4 +135,9 @@ public class ChatController {
 	public int notReadCnt(int usr_no) throws Exception {
 		return chatService.notReadCnt(usr_no);
 	}
+	
+	@RequestMapping(value = "/player", method = RequestMethod.GET)
+	public String videoPlayer() throws Exception {
+		return "chatting/videoPlayer";
+	}
 }
