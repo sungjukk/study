@@ -47,11 +47,11 @@
 							<col width="90%" />
 						</colgroup>
 						<tr>
-							<td colspan="2">내 프로필</td>
+							<td colspan="2" class="chatProfileTxt">내 프로필</td>
 						</tr>
 						<tr class="userInfo">
-							<td><img id="thumbnail${sessionScope.member.usr_no}" src="/image?file=${sessionScope.member.filePath}/${sessionScope.member.sysName}" onerror="javascript:errorUserImg(${sessionScope.member.usr_no})" /></td>
-							<td>${sessionScope.member.nickName}</td>
+							<td class="chatProfileTd"><img id="thumbnail${sessionScope.member.usr_no}" class="chatMyImg" src="/image?file=${sessionScope.member.filePath}/${sessionScope.member.sysName}" onerror="javascript:errorUserImg(${sessionScope.member.usr_no})" /></td>
+							<td class="chatProfileChatName">${sessionScope.member.nickName}</td>
 						</tr>
 					</table>
 				</div>
