@@ -8,17 +8,18 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
-import org.springframework.stereotype.Controller;
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import kr.co.mlec.dao.BoardDao;
-import kr.co.mlec.dao.BoardDaoImpl;
 import kr.co.mlec.vo.FileVO;
 
-public class FileUpload {
+public class ChatFileUpload {
 	
-	public FileVO fileUpload(MultipartFile file, int no, int type) throws Exception {
+	public FileVO fileUpload(MultipartFile file) throws Exception {
 		SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd");
 		String datePath = sdf.format(new Date());
 		String savePath = "c://study" + datePath;
@@ -37,14 +38,14 @@ public class FileUpload {
 				}
 				String saveFileName = new SimpleDateFormat("yyyyMMdd").format(new Date()) + UUID.randomUUID().toString() + ext;
 				FileVO fv = new FileVO();
-				fv.setBoard_no(no);
-				fv.setBoard_type(type);
+				fv.setBoard_no(0);
+				fv.setBoard_type(1);
 				fv.setFilePath(datePath);
 				fv.setOriName(oriFileName);
 				fv.setSysName(saveFileName);
-				fv.setExt(ext);
+				System.out.println("등록된거야 만거야");
 				file.transferTo(new File(savePath + "/" + saveFileName));
-				return fv;
+				return fv;	
 			}
 		return null;
 	}

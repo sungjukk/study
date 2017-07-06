@@ -7,10 +7,16 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import kr.co.mlec.dao.ChatDao;
+import kr.co.mlec.util.ChatFileUpload;
+import kr.co.mlec.util.FileUpload;
+import kr.co.mlec.util.SecurityCryptograph;
 import kr.co.mlec.vo.ChatRoomDetailVO;
 import kr.co.mlec.vo.ChatRoomVO;
+import kr.co.mlec.vo.FileVO;
 import kr.co.mlec.vo.MemberVO;
 
 @Service
@@ -18,6 +24,8 @@ public class ChatServiceImpl implements ChatService {
 	
 	@Inject
 	private ChatDao dao;
+	
+	private final String imgExt[] = {".jpg",".png",".jpeg",".gif"}; 
 
 	@Override
 	public List<MemberVO> getUserList(int myUserNo) throws Exception {
@@ -75,5 +83,76 @@ public class ChatServiceImpl implements ChatService {
 		
 		// 채팅방 글 전체를 가져온다.
 		return dao.getChatMsgList(cno);
+	}
+
+	@Override
+	public List<ChatRoomDetailVO> getChatRoomList(int usrNo) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.getChatRoomList(usrNo);
+	}
+
+	@Override
+	public ChatRoomDetailVO reciveMsg(int cno, int maxSeq, int usr_no) throws Exception {
+		// TODO Auto-generated method stub
+		Map<String,Integer> param = new HashMap<String, Integer>();
+		param.put("cno", cno);
+		param.put("chatSeq", maxSeq);
+		param.put("usr_no", usr_no);
+		//유저가 방에 있으므로 읽음 처리
+		dao.readMsg(param);
+		
+		return dao.reciveMsg(param);
+	}
+
+	@Override
+	public ChatRoomDetailVO chatFileUpload(MultipartHttpServletRequest mRequest) throws Exception {
+		// TODO Auto-generated method stub
+		MultipartFile file = mRequest.getFile("chatFile");
+		ChatRoomDetailVO cdVO = new ChatRoomDetailVO();
+		
+		cdVO.setCno(Integer.parseInt(mRequest.getParameter("cno")));
+		cdVO.setSend_usrno(Integer.parseInt(mRequest.getParameter("send_usrno")));
+		cdVO.setChat_seq(dao.chatRoomDetailCount(cdVO.getCno()) + 1);
+
+		FileVO fv = new FileUpload().fileUpload(file,0,1);
+		System.out.println(fv.getExt());
+		cdVO.setFile_no(dao.insertFile(fv));
+		System.out.println(cdVO.getFile_no());
+		boolean isImg = false;
+		for (String ext : imgExt) {
+			if (fv.getExt().toLowerCase().equals(ext.toLowerCase())) {
+				isImg = true;
+				break;
+			}
+		}
+		if (isImg == true) {
+			cdVO.setContent("img");
+		} else {
+			cdVO.setContent("file");
+		}
+		
+		//메세지 저장
+		dao.insertSendMsg(cdVO);
+		
+		//받는 사람 추가
+		String reciveUser[] = mRequest.getParameter("recive_usrno").split(",");
+		for (String recive : reciveUser) {
+			cdVO.setReciveNo(Integer.parseInt(recive));
+			dao.insertReciveUser(cdVO);
+		}
+		
+		return dao.getSendMsgOne(cdVO);
+	}
+
+	@Override
+	public List<ChatRoomDetailVO> getReadCnt(int cno) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.getReadCnt(cno);
+	}
+
+	@Override
+	public int notReadCnt(int usr_no) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.notReadCnt(usr_no);
 	}
 }

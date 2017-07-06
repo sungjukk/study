@@ -9,11 +9,16 @@ public class ChatRoomDetailVO {
 	private String recive_usrno;
 	private String content;
 	private int isRead;
-	private String send_date;
+	private Date send_date;
 	private int reciveNo;
 	private String filePath;
 	private String sysName;
 	private String nickName;
+	private int readCnt;
+	private int file_no;
+	private String sendFilePath;
+	private String sendOriName;
+	private String sendSysName;
 	
 	public int getCno() {
 		return cno;
@@ -51,10 +56,10 @@ public class ChatRoomDetailVO {
 	public void setIsRead(int isRead) {
 		this.isRead = isRead;
 	}
-	public String getSend_date() {
+	public Date getSend_date() {
 		return send_date;
 	}
-	public void setSend_date(String send_date) {
+	public void setSend_date(Date send_date) {
 		this.send_date = send_date;
 	}
 	public int getReciveNo() {
@@ -81,12 +86,36 @@ public class ChatRoomDetailVO {
 	public void setNickName(String nickName) {
 		this.nickName = nickName;
 	}
-	@Override
-	public String toString() {
-		return "ChatRoomDetailVO [cno=" + cno + ", chat_seq=" + chat_seq + ", send_usrno=" + send_usrno
-				+ ", recive_usrno=" + recive_usrno + ", content=" + content + ", isRead=" + isRead + ", send_date="
-				+ send_date + "]";
+	public int getReadCnt() {
+		return readCnt;
+	}
+	public void setReadCnt(int readCnt) {
+		this.readCnt = readCnt;
+	}
+	public int getFile_no() {
+		return file_no;
+	}
+	public void setFile_no(int file_no) {
+		this.file_no = file_no;
 	}
 	
+	public String getSendFilePath() {
+		return sendFilePath;
+	}
+	public void setSendFilePath(String sendFilePath) {
+		this.sendFilePath = sendFilePath;
+	}
+	public String getSendOriName() {
+		return sendOriName;
+	}
+	public void setSendOriName(String sendOriName) {
+		this.sendOriName = sendOriName;
+	}
+	public String getSendSysName() {
+		return sendSysName;
+	}
+	public void setSendSysName(String sendSysName) {
+		this.sendSysName = sendSysName;
+	}
 	
 }

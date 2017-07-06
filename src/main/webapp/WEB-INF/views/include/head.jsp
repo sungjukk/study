@@ -26,3 +26,6 @@
 <meta name="msapplication-TileImage" content="/resources/images/favicon/favicon-144.png">
 <meta name="msapplication-config" content="/resources/images/favicon/browserconfig.xml">
 <title>euneezz</title>
+<script type="text/javascript">
+	var chatType = 1;
+</script>

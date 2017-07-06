@@ -7,6 +7,7 @@ public class FileVO {
 	private String filePath;
 	private String oriName;
 	private String sysName;
+	private String ext;
 	
 	
 	
@@ -46,11 +47,19 @@ public class FileVO {
 	public void setSysName(String sysName) {
 		this.sysName = sysName;
 	}
+	public String getExt() {
+		return ext;
+	}
+	public void setExt(String ext) {
+		this.ext = ext;
+	}
 	@Override
 	public String toString() {
 		return "FileVO [file_no=" + file_no + ", board_no=" + board_no + ", board_type=" + board_type + ", filePath="
-				+ filePath + ", oriName=" + oriName + ", sysName=" + sysName + "]";
+				+ filePath + ", oriName=" + oriName + ", sysName=" + sysName + ", ext=" + ext + "]";
 	}
+	
+	
 	
 	
 }

@@ -22,12 +22,12 @@
 <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.3/summernote.js"></script>
 <!-- socket.io -->
 <script type="text/javascript" src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+<script src="/resources/js/chat.js"></script>
 <title>Insert title here</title>
 <script type="text/javascript">
 	function errorImg() {
 		$("#thumnail").attr("src","/resources/images/img_photo_2.gif");
 	}
-	
 	function showMenuBar() {
 		$(".headerDiv").css("z-index","2000");
 		$(".menuClear").css("display","block");
@@ -120,7 +120,7 @@
  	 		
  	 		$(".phoneLogin").animate({left :'0%'});
 		});
-		  
+		
 	});
 
 
@@ -132,6 +132,7 @@
 		</div>
 		<div class="menuBar phone">
 			<div>
+				<input type="hidden" name="isLogin" value="${sessionScope.member.usr_no}">
 			<c:choose>
 				<c:when test="${sessionScope.member == null}">
 					<div class="loginMenu">
@@ -207,7 +208,7 @@
 						</div>
 						<a href="/chat" class="menuBarTitle">
 							<span class="glyphicon glyphicon-off sideIconText" aria-hidden="true"></span>
-							<span class="sideIconText sideTextLogin" style="font-weight: bold; color: #e4e4e4; padding-left: 8%">채팅</span>	
+							<span class="sideIconText sideTextLogin" style="font-weight: bold; color: #e4e4e4; padding-left: 8%">채팅 <span class="badge rCnt" style="background-color: #d9534f; font-size: 15px">1</span></span>	
 						</a>
 						</div>
 					</div>

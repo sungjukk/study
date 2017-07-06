@@ -5,14 +5,17 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.mlec.service.ChatService;
 import kr.co.mlec.vo.ChatRoomDetailVO;
 import kr.co.mlec.vo.ChatRoomVO;
+import kr.co.mlec.vo.FileVO;
 
 @Controller
 @RequestMapping(value = "/chat")
@@ -88,9 +91,48 @@ public class ChatController {
 	@RequestMapping(value="/msgList", method = RequestMethod.POST)
 	public ModelAndView getChatMsgList(int cno, int usrNo) throws Exception {
 		ModelAndView mav = new ModelAndView("chatting/sendMsgForm");
-		System.out.println(cno);
-		System.out.println(usrNo);
 		mav.addObject("sendList", chatService.getChatMsgList(cno, usrNo));
 		return mav;
+	}
+	
+	@RequestMapping(value="/roomList", method = RequestMethod.POST)
+	public ModelAndView getChatRoomList(int usrNo) throws Exception {
+		ModelAndView mav = new ModelAndView("chatting/roomList");
+		mav.addObject("roomList", chatService.getChatRoomList(usrNo));
+		return mav;
+	}
+	
+	@RequestMapping(value="/reciveMsg", method = RequestMethod.POST)
+	public ModelAndView reciveMsg(int cno, int maxSeq, int usr_no) throws Exception {
+		System.out.println(cno);
+		System.out.println(maxSeq);
+		System.out.println(usr_no);
+		ModelAndView mav = new ModelAndView("chatting/sendMsgForm");
+		List<ChatRoomDetailVO> list = new ArrayList<ChatRoomDetailVO>();
+		list.add(chatService.reciveMsg(cno, maxSeq, usr_no));
+		mav.addObject("sendList", list);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/file", method = RequestMethod.POST)
+	public ModelAndView chatFileUpload(MultipartHttpServletRequest mRequest) throws Exception {
+		ModelAndView mav = new ModelAndView("chatting/sendMsgForm");
+		List<ChatRoomDetailVO> list = new ArrayList<ChatRoomDetailVO>();
+		list.add(chatService.chatFileUpload(mRequest));
+		mav.addObject("sendList", list);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/getReadCnt", method = RequestMethod.POST)
+	@ResponseBody	
+	public List<ChatRoomDetailVO> getReadCnt(int cno) throws Exception {
+		
+		return chatService.getReadCnt(cno);
+	}
+	
+	@RequestMapping(value ="/notReadCnt", method = RequestMethod.POST)
+	@ResponseBody
+	public int notReadCnt(int usr_no) throws Exception {
+		return chatService.notReadCnt(usr_no);
 	}
 }

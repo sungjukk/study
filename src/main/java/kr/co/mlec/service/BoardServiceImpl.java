@@ -18,6 +18,7 @@ import kr.co.mlec.util.DateCalculation;
 import kr.co.mlec.util.FileUpload;
 import kr.co.mlec.vo.BoardVO;
 import kr.co.mlec.vo.CommentVO;
+import kr.co.mlec.vo.FileVO;
 import kr.co.mlec.vo.PageVO;
 
 @Service
@@ -54,7 +55,9 @@ public class BoardServiceImpl implements BoardService {
 		
 		MultipartFile file = mRequest.getFile("file");
 		
-		new FileUpload().fileUpload(file, board_no, 1);
+		FileVO fv = new FileUpload().fileUpload(file, board_no, 1);
+		
+		dao.insertFile(fv);
 		
 /*		SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd");
 		String datePath = sdf.format(new Date());

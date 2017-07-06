@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import kr.co.mlec.vo.ChatRoomDetailVO;
 import kr.co.mlec.vo.ChatRoomVO;
+import kr.co.mlec.vo.FileVO;
 import kr.co.mlec.vo.MemberVO;
 
 @Repository
@@ -88,5 +89,36 @@ public class ChatDaoImpl implements ChatDao {
 	public List<ChatRoomDetailVO> getChatMsgList(int cno) throws Exception {
 		// TODO Auto-generated method stub
 		return sqlSessionTemplate.selectList(nameSpace + "getChatMsgList", cno);
+	}
+
+	@Override
+	public List<ChatRoomDetailVO> getChatRoomList(int usrNo) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectList(nameSpace + "getRoomList", usrNo);
+	}
+
+	@Override
+	public ChatRoomDetailVO reciveMsg(Map<String, Integer> param) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectOne(nameSpace + "reciveMsg", param);
+	}
+
+	@Override
+	public int insertFile(FileVO fv) throws Exception {
+		// TODO Auto-generated method stub
+		sqlSessionTemplate.insert(nameSpace + "insertFile", fv);
+		return fv.getFile_no();
+	}
+
+	@Override
+	public List<ChatRoomDetailVO> getReadCnt(int cno) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectList(nameSpace + "getReadCnt", cno);
+	}
+
+	@Override
+	public int notReadCnt(int usr_no) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectOne(nameSpace + "notReadCnt", usr_no);
 	}
 }

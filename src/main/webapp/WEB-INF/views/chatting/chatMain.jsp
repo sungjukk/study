@@ -18,18 +18,21 @@
 	<div class="container">
 		<div class="phoneBody">
 			<div class="phoneBodyContent">
-				<nav class="navbar navbar-default chatnav">
-				  <div class="container-fluid">
-				    <div class="navbar-header" style="background-color: white;">
-				      <a class="navbar-brand" href="/chat">
-				        <span class="glyphicon glyphicon-user"></span>
-				      </a>
-				      <a class="navbar-brand" href="/chat/roomList">
-				        <span class="glyphicon glyphicon-comment"></span>
-				      </a>
-				    </div>
-				  </div>
-				</nav>
+				<div style="position: fixed; width: 100%">
+					<nav class="navbar navbar-default chatnav">
+					  <div class="container-fluid">
+					    <div class="navbar-header" style="background-color: white;">
+					      <a class="navbar-brand" href="/chat">
+					        <span class="glyphicon glyphicon-user"></span>
+					      </a>
+					      <a class="navbar-brand" href="/chat/roomList">
+					        <span class="glyphicon glyphicon-comment"></span>
+					      </a>
+					    </div>
+					  </div>
+					</nav>
+				</div>
+				<div class="fixedDiv" style="width: 100%; height: 50px"></div>
 				<div class="userSearch">
 					<div class="input-group">
 						<span class="input-group-addon searchIcon" id="basic-addon1"><span class="glyphicon glyphicon-search"></span></span>

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import kr.co.mlec.vo.ChatRoomDetailVO;
 import kr.co.mlec.vo.ChatRoomVO;
+import kr.co.mlec.vo.FileVO;
 import kr.co.mlec.vo.MemberVO;
 
 public interface ChatDao {
@@ -29,4 +30,14 @@ public interface ChatDao {
 	public void readMsg(Map<String,Integer> map) throws Exception;
 	
 	public List<ChatRoomDetailVO> getChatMsgList(int cno) throws Exception;
+	
+	public List<ChatRoomDetailVO> getChatRoomList(int usrNo) throws Exception;
+	
+	public ChatRoomDetailVO reciveMsg(Map<String,Integer> param) throws Exception;
+	
+	public int insertFile(FileVO fv) throws Exception;
+	
+	public List<ChatRoomDetailVO> getReadCnt(int cno) throws Exception;
+	
+	public int notReadCnt(int usr_no) throws Exception;
 }

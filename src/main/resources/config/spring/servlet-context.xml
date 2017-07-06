@@ -21,7 +21,7 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="kr.co.mlec" />
+	<context:component-scan base-package="kr.co.mlec.*" />
 	
 	<beans:bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
     <beans:property name="order" value="0"/>     

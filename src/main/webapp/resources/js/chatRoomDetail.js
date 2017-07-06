@@ -6,12 +6,12 @@ var myNo;
 var sendUsr;
 var reciveUsr = "";
 var readUser = 0;
+var maxSeq = 0;
 
 function errorUserImg(no) {
 	$(".chatThumbnail" + no).attr("src","/resources/images/img_photo_2.gif");
 }
 function initChat(uno,rNo,usrList) {
-	//var chat = io.connect("http://localhost:10001");
 	cno = rNo;
 	var usrNo = new Array();
 	myNo = uno;
@@ -36,9 +36,31 @@ function initChat(uno,rNo,usrList) {
 		type : "POST",
 		data : {cno : cno, usrNo : myNo}
 	}).done(function (result) {
-		console.log(result);
+		//console.log(result);
 		$(".chatMessageList").append(result);
+		$(".chatList").scrollTop($(".chatMessageList").height());
+		$("#sendImg").on('load',function () {
+			$(".chatList").scrollTop($(".chatMessageList").height());
+		});
+/*		$("#focusChat").focus();
+		$("#focusChat").hide();*/
+		maxSeq = $("#maxSeq").val();
+		//console.log(maxSeq);
+/*		console.log($(".chatList").scrollTop());
+		console.log($(".chatMessageList").height());*/
+		//console.log($(".chatList").scrollTop());
 	});
+	
+	$.ajax({
+		url : "/chat/getReadCnt",
+		type : "POST",
+		data : {cno : cno}
+	}).done(function (json) {
+		var readCnt = new Object();
+		readCnt.readCnt = json;
+		readCnt.cno = cno;
+		chat.emit('readMsg',readCnt);
+	})
 }
 
 function sendMsg() {
@@ -54,9 +76,51 @@ function sendMsg() {
 		data : data,
 		type : "POST"
 	}).done(function (result) {
-		console.log(result);
+		var seq = result.split('value="')[1].split('"')[0];
+		data.state = chatType;
+		maxSeq = seq;
+		data.maxSeq = maxSeq;
+		chat.emit('sendMsg',data);
 		$(".chatMessageList").append(result);
+		$(".chatList").scrollTop($(".chatMessageList").height());	
 	});
 	
 	$(".chatMsg").val("");
+}
+
+function chatUpload() {
+	$("#chatFile").trigger('click');
+}
+
+function chatFileUpload() {
+	var data = {
+			cno : cno,
+			send_usrno : myNo,
+			recive_usrno : reciveUsr
+	}
+	
+	var file = $("#chatFile")[0].files;
+	var fd = new FormData();
+	
+	fd.append("chatFile",file[0]);
+	fd.append("cno",data.cno);
+	fd.append("send_usrno",data.send_usrno);
+	fd.append("recive_usrno",data.recive_usrno);
+	
+	$.ajax({
+		url : "/chat/file",
+		data : fd,
+		type : "POST",
+		processData : false,
+		contentType : false
+	}).done(function(result) {
+		var seq = result.split('value="')[1].split('"')[0];
+		data.state = chatType;
+		maxSeq = seq;
+		data.maxSeq = maxSeq;
+		chat.emit('sendMsg',data);
+		$(".chatMessageList").append(result).find('img').on('load',function () {
+			$(".chatList").scrollTop($(".chatMessageList").height());			
+		});
+	});
 }

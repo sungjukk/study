@@ -148,17 +148,24 @@
  	.userInfo > td:nth-child(2) {text-align: left; font-size: 1em; font-weight: bold; color: #737373}
  	.userInfo > td:nth-child(1) > img {width: 60px; height: 60px; border-radius: 50%} 
  	.chatnav {margin-bottom: 0}
- 	.chatContent {padding: 0.5em 1em 0.5em 0.5em; margin-right: 8px; margin-top: 0.5em; position: relative;background: #FFFFFF;-webkit-border-radius: 7px;-moz-border-radius: 7px;border-radius: 7px;}
-	.chatContent:after {content: '';position: absolute;border-style: solid;border-width: 5px 0 5px 10px;border-color: transparent #FFFFFF;display: block;width: 0;z-index: 1;margin-top: -5px;right: -10px;top: 51%;}
+ 	.chatContent {padding: 0.5em 1em 0.5em 0.5em; margin-right: 8px; margin-top: 0.5em; position: relative;background: rgba(255, 236, 66, 1);-webkit-border-radius: 7px;-moz-border-radius: 7px;border-radius: 7px; max-width: 60%}
+	.chatContent:after {content: '';position: absolute;border-style: solid;border-width: 5px 0 5px 10px;border-color: transparent rgba(255, 236, 66, 1);display: block;width: 0;z-index: 1;margin-top: -5px;right: -10px;top: 51%;}
 	.messageDate, .chatContent {float: right;}
 	.messageDate {margin-top: 5.5%; margin-right: 5px}
 	.chatMessage:after{content:'';display:block;clear:both;}
 	
 	.userChatContent {margin-top: 0.5em; position: relative;padding: 0px;background: #FFFFFF;-webkit-border-radius: 7px;-moz-border-radius: 7px;border-radius: 7px;}
-	.userChatContent:after {content: '';position: absolute;border-style: solid;border-width: 5px 10px 5px 0;border-color: transparent #FFFFFF;display: block;width: 0;z-index: 1;margin-top: -5px;left: -10px;top: 51%;}
+	.userChatContent:after {content: '';position: absolute;border-style: solid;border-width: 5px 10px 5px 0;border-color: transparent #FFFFFF;display: block;width: 0;z-index: 1; left: -10px;top: 5%;}
 	#userThumbnail, .userMessageDate, .chatUsr {float: left;}
 	.userChatMessage:after{content:'';display:block;clear:both;}
 	.userChatMessage {margin: 1em 0 1em 0}
+	
+	
+	.roomProfile {background-color: white;}
+	.roomList {width: 100%}
+ 	.roomInfo > td:nth-child(1) {padding: 1.5em 1.5em 1.5em 1em; text-align: left;}
+ 	.roomInfo > td:nth-child(2) {text-align: left; font-size: 1em; font-weight: bold; color: #737373}
+ 	.roomInfo > td:nth-child(1) > img {width: 60px; height: 60px; border-radius: 50%} 
  	
 }
  
