@@ -40,4 +40,6 @@ public interface ChatDao {
 	public List<ChatRoomDetailVO> getReadCnt(int cno) throws Exception;
 	
 	public int notReadCnt(int usr_no) throws Exception;
+	
+	public List<MemberVO> getUserInfo(String userInfo) throws Exception;
 }

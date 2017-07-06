@@ -203,4 +203,10 @@
 		  WHERE USR_NO = #{usr_no} 
 		    AND READ_YN = 'N'
 	</select>
+	
+	<select id="getUserInfo" parameterType="string" resultMap="memberMap">
+		SELECT USR_NO, NICKNAME, FILEPATH, SYSNAME 
+		  FROM TBLUSERINFO 
+		 WHERE USR_NO IN (#{userInfo})
+	</select>
 </mapper>

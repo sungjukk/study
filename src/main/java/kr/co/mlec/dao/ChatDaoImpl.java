@@ -121,4 +121,10 @@ public class ChatDaoImpl implements ChatDao {
 		// TODO Auto-generated method stub
 		return sqlSessionTemplate.selectOne(nameSpace + "notReadCnt", usr_no);
 	}
+
+	@Override
+	public List<MemberVO> getUserInfo(String userInfo) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectList(nameSpace + "getUserInfo", userInfo);
+	}
 }

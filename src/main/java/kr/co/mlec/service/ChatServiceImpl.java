@@ -165,4 +165,10 @@ public class ChatServiceImpl implements ChatService {
 		// TODO Auto-generated method stub
 		return dao.notReadCnt(usr_no);
 	}
+
+	@Override
+	public List<MemberVO> getUserInfo(String userInfo) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.getUserInfo(userInfo);
+	}
 }

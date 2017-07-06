@@ -2,6 +2,7 @@ package kr.co.mlec.service;
 
 import java.util.List;
 
+import org.springframework.aop.ThrowsAdvice;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -30,4 +31,6 @@ public interface ChatService {
 	public List<ChatRoomDetailVO> getReadCnt(int cno) throws Exception;
 	
 	public int notReadCnt(int usr_no) throws Exception;
+	
+	public List<MemberVO> getUserInfo(String userInfo) throws Exception;
 }

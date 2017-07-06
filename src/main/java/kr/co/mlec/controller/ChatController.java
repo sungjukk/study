@@ -44,8 +44,9 @@ public class ChatController {
 	}
 	
 	@RequestMapping(value="/room", method = RequestMethod.POST)
-	public ModelAndView chatRoom(String[] roomNo) throws Exception {
+	public ModelAndView chatRoom(String[] roomNo, String[] chatUserNo) throws Exception {
 		int[] sortUno = new int[roomNo.length];
+		int[] usrNo = new int[chatUserNo.length];
 		String temp;
 		for (int i = 0; i < roomNo.length; i++) {
 			for (int j = i + 1; j < roomNo.length; j++) {
@@ -73,8 +74,20 @@ public class ChatController {
 		}
 		cvo.setEnter_usrno(room);
 		cvo.setUser_list(roomInfo);
+		
+		String inUser = "";
+		int cnt = 0;
+		for (String usr : chatUserNo) {
+			if (cnt == chatUserNo.length - 1) {
+				inUser = usr;
+			} else {
+				inUser = usr + ",";
+			}
+			cnt++;
+		}
 		ModelAndView mav = new ModelAndView("chatting/chatRoomDetail");
 		mav.addObject("chatInfo", chatService.chatRoom(cvo));
+		mav.addObject("userInfo", chatService.getUserInfo(inUser));
 		return mav;
 	}
 	

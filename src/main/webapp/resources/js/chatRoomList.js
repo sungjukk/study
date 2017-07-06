@@ -22,5 +22,6 @@ function chatRoom(usrno) {
 	frm.attr("action","/chat/room");
 	frm.append("<input type='hidden' name='roomNo' value='" + $("#userNo").val() + "'>");
 	frm.append("<input type='hidden' name='roomNo' value='" + usrno  + "'>");
+	frm.append("<input type='hidden' name='chatUserNo' value='" + usrno  + "'>");
 	frm.submit();
 }
