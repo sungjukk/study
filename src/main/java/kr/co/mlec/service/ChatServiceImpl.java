@@ -63,10 +63,10 @@ public class ChatServiceImpl implements ChatService {
 		dao.insertSendMsg(cdVO);
 		
 		// 받는 사람 추가
-		String reciveUser[] = cdVO.getRecive_usrno().split(",");
-		for (String recive : reciveUser) {
-			cdVO.setReciveNo(Integer.parseInt(recive));
-			dao.insertReciveUser(cdVO);
+		String receiveUser[] = cdVO.getReceive_usrno().split(",");
+		for (String receive : receiveUser) {
+			cdVO.setReceiveNo(Integer.parseInt(receive));
+			dao.insertreceiveUser(cdVO);
 		}
 		
 		// 보낸 정보 가져오기
@@ -93,7 +93,7 @@ public class ChatServiceImpl implements ChatService {
 	}
 
 	@Override
-	public ChatRoomDetailVO reciveMsg(int cno, int maxSeq, int usr_no) throws Exception {
+	public ChatRoomDetailVO receiveMsg(int cno, int maxSeq, int usr_no) throws Exception {
 		// TODO Auto-generated method stub
 		Map<String,Integer> param = new HashMap<String, Integer>();
 		param.put("cno", cno);
@@ -102,7 +102,7 @@ public class ChatServiceImpl implements ChatService {
 		//유저가 방에 있으므로 읽음 처리
 		dao.readMsg(param);
 		
-		return dao.reciveMsg(param);
+		return dao.receiveMsg(param);
 	}
 
 	@Override
@@ -145,10 +145,10 @@ public class ChatServiceImpl implements ChatService {
 		dao.insertSendMsg(cdVO);
 		
 		//받는 사람 추가
-		String reciveUser[] = mRequest.getParameter("recive_usrno").split(",");
-		for (String recive : reciveUser) {
-			cdVO.setReciveNo(Integer.parseInt(recive));
-			dao.insertReciveUser(cdVO);
+		String receiveUser[] = mRequest.getParameter("receive_usrno").split(",");
+		for (String receive : receiveUser) {
+			cdVO.setReceiveNo(Integer.parseInt(receive));
+			dao.insertreceiveUser(cdVO);
 		}
 		
 		return dao.getSendMsgOne(cdVO);
@@ -167,7 +167,7 @@ public class ChatServiceImpl implements ChatService {
 	}
 
 	@Override
-	public List<MemberVO> getUserInfo(String userInfo) throws Exception {
+	public List<MemberVO> getUserInfo(String[] userInfo) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.getUserInfo(userInfo);
 	}

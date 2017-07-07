@@ -28,11 +28,11 @@ $(document).ready(function() {
 chat.on('reciveMsg',function(result) {
 	console.log(result);
 	
-	var reciveUser = result.recive_usrno.split(",");
+	var receiveUser = result.receive_usrno.split(",");
 	var isUser = false;
 	
-	for (var i = 0; i < reciveUser.length; i++) {
-		if (reciveUser[i] == uNo) {
+	for (var i = 0; i < receiveUser.length; i++) {
+		if (receiveUser[i] == uNo) {
 			isUser = true;
 		}
 	}
@@ -54,7 +54,7 @@ function chatMsgProcess(result) {
 		if (cno == result.cno) {
 			result.usr_no = uNo;
 			$.ajax({
-				url : "/chat/reciveMsg",
+				url : "/chat/receiveMsg",
 				type : "POST",
 				data : result
 			}).done(function (text) {
@@ -67,14 +67,14 @@ function chatMsgProcess(result) {
 					console.log($(".chatMessageList").height() * 0.5);
 					console.log($(".chatList").scrollTop());
 					if ($(".chatMessageList").height() * 0.5 <= $(".chatList").scrollTop()) {
+					} else {
 						$(".chatMessageList").append(text).find('img').on('load',function () {
 							$(".chatList").scrollTop($(".chatMessageList").height());			
 						});
 						$(".chatList").scrollTop($(".chatMessageList").height());	
-					} else {
 //						$(".scrollUp").html(text);
-						$(".chatMessageList").append(text);
-						console.log("여기로 오니??");
+						/*$(".chatMessageList").append(text);
+						console.log("여기로 오니??");*/
 					}
 					
 					// 전부 다 읽은 경우
@@ -109,7 +109,8 @@ function chatMsgProcess(result) {
 }
 
 chat.on('readCnt',function(data) {
-	if (cno = data.cno) {
+	console.log(cno);
+	if (cno == data.cno) {
 		readCnt(data);
 	}
 });

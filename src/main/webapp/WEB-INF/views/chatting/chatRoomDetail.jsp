@@ -30,13 +30,13 @@
 	<div class="container">
 		<div class="phoneBody">
 			<div class="phoneBodyContent">
-				<div class="chatState" style="width: 100%; height: 8%; background-color: rgba(152,182,204,1)">
+				<div class="chatState" style="width: 100%; height: 8%; background-color: rgba(152,182,204,1)" onclick="javascript:$('.chatList').scrollTop($('.chatList').scrollTop() - 500)">
 					<c:forEach var="user" items="${userInfo}">
 						<img class="chatThumbnail${user.nickName}" src="/image?file=${user.filePath}/${user.sysName}" style="width: 40px; height: 40px; border-radius: 50%; margin: 2% 0 0 3%; float: left;" onerror="javascript:errorUserImg('${user.nickName}')" >
 						<div style="padding-top: 5%; margin-left: 15%; font-size: 13px; font-weight: bold;">${user.nickName}</div>					
 					</c:forEach>
 				</div>
-				<div class="chatList" style="overflow-y: auto;height: 79%; overflow-x: hidden; position: fixed; width: 100%; background: rgba(160,192,215,1)">
+				<div class="chatList" style="overflow-y: auto;height: 77%; overflow-x: hidden; position: fixed; width: 100%; background: rgba(160,192,215,1)">
 					<div class="chatMessageList" style="overflow-y: hidden">		
 					</div>
 <!-- 					<input type="text" id="focusChat" />			 -->

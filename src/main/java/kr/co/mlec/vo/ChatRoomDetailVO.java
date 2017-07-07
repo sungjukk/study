@@ -6,11 +6,11 @@ public class ChatRoomDetailVO {
 	private int cno;
 	private int chat_seq;
 	private int send_usrno;
-	private String recive_usrno;
+	private String receive_usrno;
 	private String content;
 	private int isRead;
 	private Date send_date;
-	private int reciveNo;
+	private int receiveNo;
 	private String filePath;
 	private String sysName;
 	private String nickName;
@@ -38,11 +38,11 @@ public class ChatRoomDetailVO {
 	public void setSend_usrno(int send_usrno) {
 		this.send_usrno = send_usrno;
 	}
-	public String getRecive_usrno() {
-		return recive_usrno;
+	public String getReceive_usrno() {
+		return receive_usrno;
 	}
-	public void setRecive_usrno(String recive_usrno) {
-		this.recive_usrno = recive_usrno;
+	public void setReceive_usrno(String receive_usrno) {
+		this.receive_usrno = receive_usrno;
 	}
 	public String getContent() {
 		return content;
@@ -62,11 +62,11 @@ public class ChatRoomDetailVO {
 	public void setSend_date(Date send_date) {
 		this.send_date = send_date;
 	}
-	public int getReciveNo() {
-		return reciveNo;
+	public int getReceiveNo() {
+		return receiveNo;
 	}
-	public void setReciveNo(int reciveNo) {
-		this.reciveNo = reciveNo;
+	public void setReceiveNo(int receiveNo) {
+		this.receiveNo = receiveNo;
 	}
 	public String getFilePath() {
 		return filePath;

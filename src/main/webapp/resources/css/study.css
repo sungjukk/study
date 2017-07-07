@@ -166,6 +166,8 @@
  	.roomInfo > td:nth-child(1) {padding: 1.5em 1.5em 1.5em 1em; text-align: left;}
  	.roomInfo > td:nth-child(2) {text-align: left; font-size: 1em; font-weight: bold; color: #737373}
  	.roomInfo > td:nth-child(1) > img {width: 60px; height: 60px; border-radius: 50%} 
+ 	.groupChatBtn {width: 100%; height: 10.3%}
+ 	.groupBtnStyle {width: 100%; height: 100%;};
  	
 }
  

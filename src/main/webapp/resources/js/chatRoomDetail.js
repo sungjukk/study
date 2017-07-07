@@ -68,7 +68,7 @@ function sendMsg() {
 		cno : cno,
 		content : $(".chatMsg").val(),
 		send_usrno : myNo,
-		recive_usrno : reciveUsr
+		receive_usrno : reciveUsr
 	}
 	
 	$.ajax({
@@ -105,7 +105,7 @@ function chatFileUpload() {
 	fd.append("chatFile",file[0]);
 	fd.append("cno",data.cno);
 	fd.append("send_usrno",data.send_usrno);
-	fd.append("recive_usrno",data.recive_usrno);
+	fd.append("receive_usrno",data.recive_usrno);
 	
 	$.ajax({
 		url : "/chat/file",

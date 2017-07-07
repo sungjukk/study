@@ -21,11 +21,11 @@
 		<result property="cno" column="CNO"/>
 		<result property="chat_seq" column="CHAT_SEQ"/>
 		<result property="send_usrno" column="SEND_USRNO"/>
-		<result property="recive_usrno" column="RECIVE_USRNO"/>
+		<result property="receive_usrno" column="RECEIVE_USRNO"/>
 		<result property="content" column="CONTENT"/>
 		<result property="isRead" column="ISREAD"/>
 		<result property="send_date" column="SEND_DATE"/>
-		<result property="reciveNo" column="RECIVENO"/>
+		<result property="receiveNo" column="RECEIVENO"/>
 		<result property="filePath" column="FILEPATH"/>
 		<result property="sysName" column="SYSNAME"/>
 		<result property="nickName" column="NICKNAME"/>
@@ -89,9 +89,9 @@
 		VALUES (#{cno}, #{chat_seq}, #{send_usrno}, #{content}, sysdate, #{file_no})
 	</insert>
 	
-	<insert id="insertReciveUser" parameterType="chatRoomDetailVO">
-		INSERT INTO MSGRECIVEUSER(CNO, CHAT_SEQ, USR_NO)
-		VALUES (#{cno}, #{chat_seq}, #{reciveNo})
+	<insert id="insertReceiveUser" parameterType="chatRoomDetailVO">
+		INSERT INTO MSGRECEIVEUSER(CNO, CHAT_SEQ, USR_NO)
+		VALUES (#{cno}, #{chat_seq}, #{receiveNo})
 	</insert>
 	
 	<select id="getSendMsgOne" parameterType="chatRoomDetailVO" resultMap="chatRoomDetailMap">
@@ -103,7 +103,7 @@
 		       B.SYSNAME,
 		       CONTENT, 
 		       SEND_DATE, 
-		       NVL((SELECT COUNT(*) FROM MSGRECIVEUSER WHERE CNO = #{cno} AND CHAT_SEQ = #{chat_seq} AND READ_YN = 'N'),0) AS ISREAD,
+		       NVL((SELECT COUNT(*) FROM MSGRECEIVEUSER WHERE CNO = #{cno} AND CHAT_SEQ = #{chat_seq} AND READ_YN = 'N'),0) AS ISREAD,
 		       A.FILE_NO,
                C.FILEPATH as SENDFILEPATH,
            	   C.ORINAME as SENDORINAME,
@@ -124,7 +124,7 @@
 		       B.SYSNAME,
 		       CONTENT, 
 		       SEND_DATE, 
-		       NVL((SELECT COUNT(*) FROM MSGRECIVEUSER WHERE CNO = #{cno} AND CHAT_SEQ = A.CHAT_SEQ AND READ_YN = 'N'),0) AS ISREAD,
+		       NVL((SELECT COUNT(*) FROM MSGRECEIVEUSER WHERE CNO = #{cno} AND CHAT_SEQ = A.CHAT_SEQ AND READ_YN = 'N'),0) AS ISREAD,
 		       A.FILE_NO,
            	   C.FILEPATH as SENDFILEPATH,
            	   C.ORINAME as SENDORINAME,
@@ -137,7 +137,7 @@
 	</select>
 	
 	<update id="readMsg" parameterType="hashmap">
-		UPDATE MSGRECIVEUSER
+		UPDATE MSGRECEIVEUSER
 		   SET READ_YN = 'Y'
 		 WHERE USR_NO = #{usr_no}
 		   AND CNO = #{cno}
@@ -145,19 +145,19 @@
 	
 	<select id="getRoomList" parameterType="int" resultMap="chatRoomDetailMap">
 		SELECT T.*, U.NICKNAME, U.FILEPATH, U.SYSNAME 
-		  FROM ( SELECT A.CNO,B.CHAT_SEQ, A.ENTER_USRNO, A.USER_LIST,(CASE B.SEND_USRNO WHEN #{usrno} THEN C.USR_NO ELSE B.SEND_USRNO END) AS RECIVE_USRNO, (CASE B.FILE_NO WHEN 0 THEN B.CONTENT ELSE '파일' END) AS CONTENT, B.SEND_DATE, NVL(D.CNT,0) AS READCNT 
-                   FROM CHATROOM A, (SELECT F.* FROM CHATROOMDETAIL F, (SELECT CNO, MAX(CHAT_SEQ) AS CHAT_SEQ FROM CHATROOMDETAIL GROUP BY CNO) Y WHERE F.CNO = Y.CNO AND F.CHAT_SEQ = Y.CHAT_SEQ) B, MSGRECIVEUSER C,
-                        (SELECT CNO, NVL(COUNT(CASE WHEN READ_YN = 'N' THEN 1 END),0) AS CNT FROM MSGRECIVEUSER A WHERE USR_NO = #{usrno} GROUP BY CNO) D
+		  FROM ( SELECT A.CNO,B.CHAT_SEQ, A.ENTER_USRNO, A.USER_LIST,(CASE B.SEND_USRNO WHEN #{usrno} THEN C.USR_NO ELSE B.SEND_USRNO END) AS RECEIVE_USRNO, (CASE B.FILE_NO WHEN 0 THEN B.CONTENT ELSE '파일' END) AS CONTENT, B.SEND_DATE, NVL(D.CNT,0) AS READCNT 
+                   FROM CHATROOM A, (SELECT F.* FROM CHATROOMDETAIL F, (SELECT CNO, MAX(CHAT_SEQ) AS CHAT_SEQ FROM CHATROOMDETAIL GROUP BY CNO) Y WHERE F.CNO = Y.CNO AND F.CHAT_SEQ = Y.CHAT_SEQ) B, MSGRECEIVEUSER C,
+                        (SELECT CNO, NVL(COUNT(CASE WHEN READ_YN = 'N' THEN 1 END),0) AS CNT FROM MSGRECEIVEUSER A WHERE USR_NO = #{usrno} GROUP BY CNO) D
                   WHERE A.CNO = B.CNO 
                     AND B.CNO = C.CNO 
                		AND B.CHAT_SEQ = C.CHAT_SEQ 
                		AND B.CNO = D.CNO(+)
    					AND USER_LIST LIKE '%' ||  #{usrno} || '%') T, TBLUSERINFO U
- 		 WHERE T.RECIVE_USRNO = U.USR_NO
+ 		 WHERE T.RECEIVE_USRNO = U.USR_NO
  		 ORDER BY SEND_DATE DESC
 	</select>
 	
-	<select id="reciveMsg" parameterType="hashmap" resultMap="chatRoomDetailMap">
+	<select id="receiveMsg" parameterType="hashmap" resultMap="chatRoomDetailMap">
 		SELECT CNO, 
 		       CHAT_SEQ, 
 		       SEND_USRNO, 
@@ -166,7 +166,7 @@
 		       B.SYSNAME,
 		       CONTENT, 
 		       SEND_DATE, 
-		       NVL((SELECT COUNT(*) FROM MSGRECIVEUSER WHERE CNO = #{cno} AND CHAT_SEQ = #{chatSeq} AND READ_YN = 'N'),0) AS ISREAD,
+		       NVL((SELECT COUNT(*) FROM MSGRECEIVEUSER WHERE CNO = #{cno} AND CHAT_SEQ = #{chatSeq} AND READ_YN = 'N'),0) AS ISREAD,
 		       A.FILE_NO,
            	   C.FILEPATH as SENDFILEPATH,
            	   C.ORINAME as SENDORINAME,
@@ -189,7 +189,7 @@
 	<select id="getReadCnt" parameterType="int" resultMap="chatRoomDetailMap">
 		SELECT A.*, SEND_USRNO 
   		  FROM ( SELECT CNO,CHAT_SEQ, COUNT(*) AS ISREAD 
-		           FROM MSGRECIVEUSER 
+		           FROM MSGRECEIVEUSER 
 		          WHERE CNO = #{cno} 
 		            AND READ_YN = 'N' 
 		          GROUP BY CNO, CHAT_SEQ) A, CHATROOMDETAIL B
@@ -199,14 +199,17 @@
 	
 	<select id="notReadCnt" parameterType="int" resultType="int">
 		 SELECT COUNT(*) AS CNT 
-		   FROM MSGRECIVEUSER 
+		   FROM MSGRECEIVEUSER 
 		  WHERE USR_NO = #{usr_no} 
 		    AND READ_YN = 'N'
 	</select>
 	
-	<select id="getUserInfo" parameterType="string" resultMap="memberMap">
+	<select id="getUserInfo" parameterType="hashmap" resultMap="memberMap">
 		SELECT USR_NO, NICKNAME, FILEPATH, SYSNAME 
 		  FROM TBLUSERINFO 
-		 WHERE USR_NO IN (#{userInfo})
+		 WHERE USR_NO IN
+		 <foreach collection="userInfo" item="usrNo" open="(" close=")" separator=",">
+		 	#{usrNo}
+		 </foreach>
 	</select>
 </mapper>

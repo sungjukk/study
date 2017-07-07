@@ -30,8 +30,15 @@ public class ChatController {
 	}
 	
 	@RequestMapping(value = "/userInfo", method = RequestMethod.POST)
-	public ModelAndView getUserInfo(String userNo) throws Exception {
-		ModelAndView mav = new ModelAndView("chatting/userTable");
+	public ModelAndView getUserInfo(String userNo, String isGroup) throws Exception {
+		String url = "";
+		if (isGroup == null) {
+			url = "chatting/userTable";
+		} else {
+			url = "chatting/groupChatForm";
+		}
+		
+		ModelAndView mav = new ModelAndView(url);
 		mav.addObject("userList", chatService.getUserList(Integer.parseInt(userNo)));
 		mav.addObject("userCount", chatService.getUserListCount(Integer.parseInt(userNo)));
 		return mav;
@@ -64,6 +71,7 @@ public class ChatController {
 		String roomInfo = "";
 		int i = 0;
 		for (String n : roomNo) {
+			System.out.println("usrno : " + n);
 			if (i == roomNo.length - 1) {
 				roomInfo += n;
 			} else {
@@ -79,15 +87,15 @@ public class ChatController {
 		int cnt = 0;
 		for (String usr : chatUserNo) {
 			if (cnt == chatUserNo.length - 1) {
-				inUser = usr;
+				inUser += usr;
 			} else {
-				inUser = usr + ",";
+				inUser += usr + ",";
 			}
 			cnt++;
 		}
 		ModelAndView mav = new ModelAndView("chatting/chatRoomDetail");
 		mav.addObject("chatInfo", chatService.chatRoom(cvo));
-		mav.addObject("userInfo", chatService.getUserInfo(inUser));
+		mav.addObject("userInfo", chatService.getUserInfo(chatUserNo));
 		return mav;
 	}
 	
@@ -115,14 +123,14 @@ public class ChatController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/reciveMsg", method = RequestMethod.POST)
-	public ModelAndView reciveMsg(int cno, int maxSeq, int usr_no) throws Exception {
+	@RequestMapping(value="/receiveMsg", method = RequestMethod.POST)
+	public ModelAndView receiveMsg(int cno, int maxSeq, int usr_no) throws Exception {
 		System.out.println(cno);
 		System.out.println(maxSeq);
 		System.out.println(usr_no);
 		ModelAndView mav = new ModelAndView("chatting/sendMsgForm");
 		List<ChatRoomDetailVO> list = new ArrayList<ChatRoomDetailVO>();
-		list.add(chatService.reciveMsg(cno, maxSeq, usr_no));
+		list.add(chatService.receiveMsg(cno, maxSeq, usr_no));
 		mav.addObject("sendList", list);
 		return mav;
 	}

@@ -1,5 +1,6 @@
 package kr.co.mlec.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -67,10 +68,10 @@ public class ChatDaoImpl implements ChatDao {
 	}
 
 	@Override
-	public void insertReciveUser(ChatRoomDetailVO cdVO) throws Exception {
+	public void insertreceiveUser(ChatRoomDetailVO cdVO) throws Exception {
 		// TODO Auto-generated method stub
 		
-		sqlSessionTemplate.insert(nameSpace + "insertReciveUser", cdVO);
+		sqlSessionTemplate.insert(nameSpace + "insertReceiveUser", cdVO);
 	}
 
 	@Override
@@ -98,9 +99,9 @@ public class ChatDaoImpl implements ChatDao {
 	}
 
 	@Override
-	public ChatRoomDetailVO reciveMsg(Map<String, Integer> param) throws Exception {
+	public ChatRoomDetailVO receiveMsg(Map<String, Integer> param) throws Exception {
 		// TODO Auto-generated method stub
-		return sqlSessionTemplate.selectOne(nameSpace + "reciveMsg", param);
+		return sqlSessionTemplate.selectOne(nameSpace + "receiveMsg", param);
 	}
 
 	@Override
@@ -123,8 +124,10 @@ public class ChatDaoImpl implements ChatDao {
 	}
 
 	@Override
-	public List<MemberVO> getUserInfo(String userInfo) throws Exception {
+	public List<MemberVO> getUserInfo(String[] userInfo) throws Exception {
 		// TODO Auto-generated method stub
-		return sqlSessionTemplate.selectList(nameSpace + "getUserInfo", userInfo);
+		Map<String, String[]> param = new HashMap<String, String[]>();
+		param.put("userInfo", userInfo);
+		return sqlSessionTemplate.selectList(nameSpace + "getUserInfo", param);
 	}
 }

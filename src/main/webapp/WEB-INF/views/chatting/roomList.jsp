@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <table class="roomList">
 	<colgroup>
@@ -12,9 +12,9 @@
 		<td colspan="3"></td>
 	</tr>
 	<c:forEach var="room" items="${roomList}" varStatus="qwe">
-		<form id="chatFrm${room.recive_usrno}" method="post">
-			<tr class="roomInfo uTable${room.recive_usrno}" onclick="chatRoom(${room.recive_usrno})" style="border-bottom: 1px solid #f7f7f7">
-				<td style="padding: 1em 1.5em 1em 1em; width: 10%;"><img id="thumbnail${room.recive_usrno}" src="/image?file=${room.filePath}/${room.sysName}" onerror="javascript:errorUserImg(${room.recive_usrno})" /></td>
+		<form id="chatFrm${room.receive_usrno}" method="post"></form>
+			<tr class="roomInfo uTable${room.receive_usrno}" onclick="chatRoom(${room.receive_usrno})" style="border-bottom: 1px solid #f7f7f7">
+				<td style="padding: 1em 1.5em 1em 1em; width: 10%;"><img id="thumbnail${room.receive_usrno}" src="/image?file=${room.filePath}/${room.sysName}" onerror="javascript:errorUserImg(${room.receive_usrno})" /></td>
 				<td class="usrNickName" style="vertical-align: baseline; padding-top: 1em">
 					<div>${room.nickName}</div>
 					<div style="font-size: 12px; margin-top: 9px; font-weight: normal;">${room.content }</div>
@@ -27,8 +27,7 @@
 						<div style="margin-top: 9px"><span class="badge" style="background-color: #d9534f; font-size: 15px">${room.readCnt}</span></div>					
 					</c:if>
 				</td>
-				<input type="hidden" id="usrNo" value="${room.recive_usrno}" />
+				<input type="hidden" id="usrNo" value="${room.receive_usrno}" />
 			</tr>
-		</form>
 	</c:forEach>
 </table>

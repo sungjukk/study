@@ -24,7 +24,7 @@ public interface ChatService {
 	
 	public List<ChatRoomDetailVO> getChatRoomList(int usrNo) throws Exception;
 	
-	public ChatRoomDetailVO reciveMsg(int cno, int maxSeq, int usr_no) throws Exception;
+	public ChatRoomDetailVO receiveMsg(int cno, int maxSeq, int usr_no) throws Exception;
 	
 	public ChatRoomDetailVO chatFileUpload(MultipartHttpServletRequest mRequest) throws Exception;
 	
@@ -32,5 +32,5 @@ public interface ChatService {
 	
 	public int notReadCnt(int usr_no) throws Exception;
 	
-	public List<MemberVO> getUserInfo(String userInfo) throws Exception;
+	public List<MemberVO> getUserInfo(String[] userInfo) throws Exception;
 }

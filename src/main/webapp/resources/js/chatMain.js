@@ -166,3 +166,29 @@ function chatRoom(usrno) {
 	frm.append("<input type='hidden' name='chatUserNo' value='" + usrno  + "'>");
 	frm.submit();
 }
+
+function groupChatOn() {
+	$.ajax({
+		url : "/chat/userInfo",
+		type : "POST",
+		data : {userNo : $("#userNo").val(), isGroup : 'Y'}
+	}).done(function(result) {
+		$(".userInfoList").html(result);
+	});
+}
+
+function groupRoomAdd() {
+	var form = $("#groupChatFrm");
+	form.attr("action","/chat/room");
+	form.append("<input type='hidden' name='roomNo' value='" + $("#userNo").val() + "'>");
+	
+	$("input[type=checkbox]").each(function () {
+		if ($(this).is(":checked")) {
+			console.log($(this).val());
+			form.append("<input type='hidden' name='roomNo' value='" + $(this).val() + "'>");
+			form.append("<input type='hidden' name='chatUserNo' value='" + $(this).val() + "'>");
+		}
+	});
+	
+	form.submit();
+}

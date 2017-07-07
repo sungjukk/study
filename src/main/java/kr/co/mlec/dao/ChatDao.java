@@ -23,7 +23,7 @@ public interface ChatDao {
 	
 	public void insertSendMsg(ChatRoomDetailVO cdVO) throws Exception;
 	
-	public void insertReciveUser(ChatRoomDetailVO cdVO) throws Exception;
+	public void insertreceiveUser(ChatRoomDetailVO cdVO) throws Exception;
 	
 	public ChatRoomDetailVO getSendMsgOne(ChatRoomDetailVO cdVO) throws Exception;
 	
@@ -33,7 +33,7 @@ public interface ChatDao {
 	
 	public List<ChatRoomDetailVO> getChatRoomList(int usrNo) throws Exception;
 	
-	public ChatRoomDetailVO reciveMsg(Map<String,Integer> param) throws Exception;
+	public ChatRoomDetailVO receiveMsg(Map<String,Integer> param) throws Exception;
 	
 	public int insertFile(FileVO fv) throws Exception;
 	
@@ -41,5 +41,5 @@ public interface ChatDao {
 	
 	public int notReadCnt(int usr_no) throws Exception;
 	
-	public List<MemberVO> getUserInfo(String userInfo) throws Exception;
+	public List<MemberVO> getUserInfo(String[] userInfo) throws Exception;
 }

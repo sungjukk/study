@@ -28,6 +28,9 @@
 					      <a class="navbar-brand" href="/chat/roomList">
 					        <span class="glyphicon glyphicon-comment"></span>
 					      </a>
+					      <a class="navbar-brand" href="javascript:groupChatOn()" style="float: right;">
+					        <span class="glyphicon glyphicon-plus"></span>
+					      </a>
 					    </div>
 					  </div>
 					</nav>
@@ -55,7 +58,7 @@
 						</tr>
 					</table>
 				</div>
-				<div class="userInfoList"></div>
+				<div class="userInfoList" style="height: 60%"></div>
 			</div>
 		</div>
 	</div>
