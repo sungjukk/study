@@ -137,7 +137,6 @@
 		resetDetailActive();
 		
 		if (isTouch == false) {
-			console.log("asdasd");
 			$(".touchActivement" + index).val('true');
 			$(".aImg" + index + " > .clickActive").css("visibility","visible");
 			$(".aImg" + index).css("border-color","#00c3ff"); 

@@ -42,4 +42,7 @@ public interface ChatDao {
 	public int notReadCnt(int usr_no) throws Exception;
 	
 	public List<MemberVO> getUserInfo(String[] userInfo) throws Exception;
+	
+	public ChatRoomVO getChatRoomByCno(String cno) throws Exception;
+	
 }

@@ -67,7 +67,6 @@
 			url : "/overwatch/test",
 			type: "POST"
 		}).done(function (data) {
-			console.log(data);
 		})
 	}
 	

@@ -130,4 +130,10 @@ public class ChatDaoImpl implements ChatDao {
 		param.put("userInfo", userInfo);
 		return sqlSessionTemplate.selectList(nameSpace + "getUserInfo", param);
 	}
+
+	@Override
+	public ChatRoomVO getChatRoomByCno(String cno) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectOne(nameSpace + "getChatRoomByCno", cno);
+	}
 }

@@ -57,7 +57,9 @@ public class BoardServiceImpl implements BoardService {
 		
 		FileVO fv = new FileUpload().fileUpload(file, board_no, 1);
 		
-		dao.insertFile(fv);
+		if (fv != null) {			
+			dao.insertFile(fv);
+		}
 		
 /*		SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd");
 		String datePath = sdf.format(new Date());

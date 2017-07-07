@@ -33,6 +33,7 @@
 		<result property="sendFilePath" column="SENDFILEPATH"/>
 		<result property="sendOriName" column="SENDORINAME"/>
 		<result property="sendSysName" column="SENDSYSNAME"/>
+		<result property="usrCnt" column="USRCNT"/>
 	</resultMap>
 	
 	<resultMap type="fileVO" id="fileMap">
@@ -145,15 +146,19 @@
 	
 	<select id="getRoomList" parameterType="int" resultMap="chatRoomDetailMap">
 		SELECT T.*, U.NICKNAME, U.FILEPATH, U.SYSNAME 
-		  FROM ( SELECT A.CNO,B.CHAT_SEQ, A.ENTER_USRNO, A.USER_LIST,(CASE B.SEND_USRNO WHEN #{usrno} THEN C.USR_NO ELSE B.SEND_USRNO END) AS RECEIVE_USRNO, (CASE B.FILE_NO WHEN 0 THEN B.CONTENT ELSE '파일' END) AS CONTENT, B.SEND_DATE, NVL(D.CNT,0) AS READCNT 
+		  FROM ( SELECT ROW_NUMBER() OVER (PARTITION BY A.CNO ORDER BY A.CNO DESC) AS RNUM, A.CNO,B.CHAT_SEQ, A.ENTER_USRNO, A.USER_LIST,(CASE B.SEND_USRNO WHEN #{usrno} THEN C.USR_NO ELSE B.SEND_USRNO END) AS RECEIVE_USRNO, (CASE B.FILE_NO WHEN 0 THEN B.CONTENT ELSE '파일' END) AS CONTENT, B.SEND_DATE, NVL(D.CNT,0) AS READCNT, E.USRCNT 
                    FROM CHATROOM A, (SELECT F.* FROM CHATROOMDETAIL F, (SELECT CNO, MAX(CHAT_SEQ) AS CHAT_SEQ FROM CHATROOMDETAIL GROUP BY CNO) Y WHERE F.CNO = Y.CNO AND F.CHAT_SEQ = Y.CHAT_SEQ) B, MSGRECEIVEUSER C,
-                        (SELECT CNO, NVL(COUNT(CASE WHEN READ_YN = 'N' THEN 1 END),0) AS CNT FROM MSGRECEIVEUSER A WHERE USR_NO = #{usrno} GROUP BY CNO) D
+                        (SELECT CNO, NVL(COUNT(CASE WHEN READ_YN = 'N' THEN 1 END),0) AS CNT FROM MSGRECEIVEUSER A WHERE USR_NO = #{usrno} GROUP BY CNO) D,
+                        (SELECT CNO, CHAT_SEQ, COUNT(USR_NO) AS USRCNT FROM MSGRECEIVEUSER GROUP BY CNO,CHAT_SEQ) E
                   WHERE A.CNO = B.CNO 
                     AND B.CNO = C.CNO 
                		AND B.CHAT_SEQ = C.CHAT_SEQ 
                		AND B.CNO = D.CNO(+)
+               		AND B.CNO = E.CNO
+                  	AND B.CHAT_SEQ = E.CHAT_SEQ
    					AND USER_LIST LIKE '%' ||  #{usrno} || '%') T, TBLUSERINFO U
  		 WHERE T.RECEIVE_USRNO = U.USR_NO
+ 		   AND RNUM = 1
  		 ORDER BY SEND_DATE DESC
 	</select>
 	
@@ -211,5 +216,11 @@
 		 <foreach collection="userInfo" item="usrNo" open="(" close=")" separator=",">
 		 	#{usrNo}
 		 </foreach>
+	</select>
+	
+	<select id="getChatRoomByCno" parameterType="string" resultMap="chatRoomMap">
+		SELECT *
+  		  FROM CHATROOM
+ 		 WHERE CNO = #{cno}
 	</select>
 </mapper>

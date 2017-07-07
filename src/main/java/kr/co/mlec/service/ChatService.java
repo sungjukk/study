@@ -33,4 +33,6 @@ public interface ChatService {
 	public int notReadCnt(int usr_no) throws Exception;
 	
 	public List<MemberVO> getUserInfo(String[] userInfo) throws Exception;
+	
+	public ChatRoomVO getChatRoom(String cno) throws Exception;
 }

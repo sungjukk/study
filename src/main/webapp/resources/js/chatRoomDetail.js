@@ -36,19 +36,12 @@ function initChat(uno,rNo,usrList) {
 		type : "POST",
 		data : {cno : cno, usrNo : myNo}
 	}).done(function (result) {
-		//console.log(result);
 		$(".chatMessageList").append(result);
 		$(".chatList").scrollTop($(".chatMessageList").height());
 		$("#sendImg").on('load',function () {
 			$(".chatList").scrollTop($(".chatMessageList").height());
 		});
-/*		$("#focusChat").focus();
-		$("#focusChat").hide();*/
 		maxSeq = $("#maxSeq").val();
-		//console.log(maxSeq);
-/*		console.log($(".chatList").scrollTop());
-		console.log($(".chatMessageList").height());*/
-		//console.log($(".chatList").scrollTop());
 	});
 	
 	$.ajax({
@@ -130,8 +123,6 @@ function showChatImg(imgPath) {
 	$(".showChatImg").show();
 	$(".viewChatImg").attr('src','/image?file='+imgPath);
 	$(".viewChatImg").on('load', function () {
-		console.log($(".viewChatImg").height());
-		console.log($(".chatImgDiv").height());
 		var margin = ($(".chatImgDiv").height() - $(".viewChatImg").height())/2;
 		if (margin < -184) margin = -184;
 		$(".viewChatImg").css("margin-top",margin + "px");

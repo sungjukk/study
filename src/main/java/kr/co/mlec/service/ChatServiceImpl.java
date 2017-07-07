@@ -1,5 +1,6 @@
 package kr.co.mlec.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,7 +49,6 @@ public class ChatServiceImpl implements ChatService {
 		} else if (count == 0) {
 			//채팅 방이 없는 경우 등록
 			cvo.setCno(dao.createChatRoom(cvo));
-			System.out.println(cvo.getCno());
 		}
 		return cvo;
 	}
@@ -89,7 +89,16 @@ public class ChatServiceImpl implements ChatService {
 	@Override
 	public List<ChatRoomDetailVO> getChatRoomList(int usrNo) throws Exception {
 		// TODO Auto-generated method stub
-		return dao.getChatRoomList(usrNo);
+		List<ChatRoomDetailVO> roomList = dao.getChatRoomList(usrNo);
+		
+		for (ChatRoomDetailVO cd : roomList) {
+			// 1보다 크면 그룹채팅방
+			if (cd.getUsrCnt() > 1) {
+				System.out.println("그룹 채팅방 1");
+			}
+		}
+		
+		return roomList;
 	}
 
 	@Override
@@ -170,5 +179,11 @@ public class ChatServiceImpl implements ChatService {
 	public List<MemberVO> getUserInfo(String[] userInfo) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.getUserInfo(userInfo);
+	}
+
+	@Override
+	public ChatRoomVO getChatRoom(String cno) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.getChatRoomByCno(cno);
 	}
 }

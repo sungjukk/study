@@ -56,7 +56,6 @@ public class BoardDaoImpl implements BoardDao {
 
 	@Override
 	public int insertFile(FileVO fv) throws Exception {
-		System.out.println(fv.toString());
 		return sqlSessionTemplate.insert(namespace + "insertFile", fv);
 	}
 

@@ -11,13 +11,11 @@ $(document).ready(function() {
 		getNotReadCnt(uNo);
 		usrInfo.state = chatType;
 		usrInfo.userNo = uNo;
-		console.log(uNo);
 		if (chatType == 1) {
 		} else if (chatType == 2) {
 			
 		} else if (chatType == 3) {
 			usrInfo.cno = cno;
-			console.log("Asdadsad");
 		}
 		chat.emit('test',usrInfo);	
 	}
@@ -26,7 +24,6 @@ $(document).ready(function() {
 });
 
 chat.on('reciveMsg',function(result) {
-	console.log(result);
 	
 	var receiveUser = result.receive_usrno.split(",");
 	var isUser = false;
@@ -63,9 +60,6 @@ function chatMsgProcess(result) {
 					type : "POST",
 					data : result
 				}).done(function (json) {
-					console.log(json);
-					console.log($(".chatMessageList").height() * 0.5);
-					console.log($(".chatList").scrollTop());
 					if ($(".chatMessageList").height() * 0.5 <= $(".chatList").scrollTop()) {
 					} else {
 						$(".chatMessageList").append(text).find('img').on('load',function () {
@@ -74,7 +68,7 @@ function chatMsgProcess(result) {
 						$(".chatList").scrollTop($(".chatMessageList").height());	
 //						$(".scrollUp").html(text);
 						/*$(".chatMessageList").append(text);
-						console.log("여기로 오니??");*/
+						*/
 					}
 					
 					// 전부 다 읽은 경우
@@ -109,14 +103,12 @@ function chatMsgProcess(result) {
 }
 
 chat.on('readCnt',function(data) {
-	console.log(cno);
 	if (cno == data.cno) {
 		readCnt(data);
 	}
 });
 
 function readCnt(data) {
-	console.log(data);
 	if (chatType == 1) {
 	} else if (chatType == 2) {
 	} else if (chatType == 3) {

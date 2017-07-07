@@ -7,22 +7,22 @@ function errorUserImg(no) {
 }
 
 function initRoomList(usrNo) {
+	usrno = usrNo;
+	console.log(usrno)
 	$.ajax({
 		url : "/chat/roomList",
 		type : "POST",
 		data : {usrNo : usrNo}
 	}).done(function(result) {
-		console.log(result);
 		$(".roomProfile").html(result);
 	})
 }
 
-function chatRoom(usrno) {
-	var frm = $("#chatFrm" + usrno);
+function chatRoom(cno) {
+	var frm = $("#chatFrm" + cno);
 	var html = "";
-	html += "<input type='hidden' name='roomNo' value='" + $("#userNo").val() + "'>";
-	html += "<input type='hidden' name='roomNo' value='" + usrno + "'>";
-	html += "<input type='hidden' name='chatUserNo' value='" + usrno  + "'>";
+	html += "<input type='hidden' name='cno' value='" + cno + "'>";
+	html += "<input type='hidden' name='uno' value='" + usrno + "'>";
 	frm.attr("action","/chat/room");
 	frm.html(html);
 	frm.submit();

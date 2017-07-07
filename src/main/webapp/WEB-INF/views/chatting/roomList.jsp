@@ -12,8 +12,8 @@
 		<td colspan="3"></td>
 	</tr>
 	<c:forEach var="room" items="${roomList}" varStatus="qwe">
-		<form id="chatFrm${room.receive_usrno}" method="post"></form>
-			<tr class="roomInfo uTable${room.receive_usrno}" onclick="chatRoom(${room.receive_usrno})" style="border-bottom: 1px solid #f7f7f7">
+		<form id="chatFrm${room.cno}" method="post"></form>
+			<tr class="roomInfo uTable${room.cno}" onclick="chatRoom(${room.cno})" style="border-bottom: 1px solid #f7f7f7">
 				<td style="padding: 1em 1.5em 1em 1em; width: 10%;"><img id="thumbnail${room.receive_usrno}" src="/image?file=${room.filePath}/${room.sysName}" onerror="javascript:errorUserImg(${room.receive_usrno})" /></td>
 				<td class="usrNickName" style="vertical-align: baseline; padding-top: 1em">
 					<div>${room.nickName}</div>

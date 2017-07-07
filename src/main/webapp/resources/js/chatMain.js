@@ -15,7 +15,6 @@ function initChatMain() {
 		type : "POST",
 		data : {userNo : $("#userNo").val()}
 	}).done(function(result) {
-		//console.log(result);
 		var usrNo = result.split('id="usrNo"');
 		var usrNick = result.split('<td class="usrNickName">');
 		for (var i = 1; i < usrNo.length; i++) {
@@ -28,7 +27,6 @@ function initChatMain() {
 			usrInfo.splitName = nickNameSpilt(nickVal[0]);
 			userList.push(usrInfo);
 		}
-		//console.log(userList);
 		$(".userInfoList").append(result);
 	})
 }
@@ -69,10 +67,7 @@ function nickNameSpilt(nick) {
 			result += rCho[cho];
 		} else {
 			result += nick.substring(i,i+1);
-		}
-		//console.log(rCho[cho]);
-		//console.log(rJung[jung]);
-		//console.log(rJong[jong]);		
+		}	
 	}
 	return result;
 }
@@ -111,8 +106,6 @@ function searchUserList(keyword) {
 				} else {
 					if (i == 0) {
 						if (key == userList[j].splitName.substring(i,i+1)) {
-							/*						console.log(obj[j].splitName.substring(i,i+1));
-						console.log(key);*/
 							var val = new Object();
 							val.splitName = userList[j].splitName;
 							val.usrNo = userList[j].usrNo;
@@ -184,7 +177,6 @@ function groupRoomAdd() {
 	
 	$("input[type=checkbox]").each(function () {
 		if ($(this).is(":checked")) {
-			console.log($(this).val());
 			form.append("<input type='hidden' name='roomNo' value='" + $(this).val() + "'>");
 			form.append("<input type='hidden' name='chatUserNo' value='" + $(this).val() + "'>");
 		}

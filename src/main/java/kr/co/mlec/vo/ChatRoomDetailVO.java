@@ -19,6 +19,7 @@ public class ChatRoomDetailVO {
 	private String sendFilePath;
 	private String sendOriName;
 	private String sendSysName;
+	private int usrCnt;
 	
 	public int getCno() {
 		return cno;
@@ -116,6 +117,12 @@ public class ChatRoomDetailVO {
 	}
 	public void setSendSysName(String sendSysName) {
 		this.sendSysName = sendSysName;
+	}
+	public int getUsrCnt() {
+		return usrCnt;
+	}
+	public void setUsrCnt(int usrCnt) {
+		this.usrCnt = usrCnt;
 	}
 	
 }

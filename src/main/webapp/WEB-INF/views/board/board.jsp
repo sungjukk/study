@@ -43,8 +43,6 @@
 		var isLastPage = false;
 		$(".phoneBody").scroll(function() {
 			var currentScroll = $(".boardTableDiv").height() + $(".boardMore").height() + $(".searchBoard").height();
-/*  			console.log("차이",Math.ceil(currentScroll - $(".phoneBody").height()));
-			console.log("스크롤",$(".phoneBody").scrollTop());  */
 
 			if ($(".phoneBody").scrollTop() == Math.ceil(currentScroll - $(".phoneBody").height())) {
 				if (isLastPage == false) {

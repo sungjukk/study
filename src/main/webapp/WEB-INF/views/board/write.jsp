@@ -33,8 +33,6 @@
 	}
 	
 	function testSummer() {
-		console.log("ÄÚµå",$("#content").summernote('code'));
-		console.log("¹ë·ù",$("#content").val());
 	}
 	function insertContent() {
 		if ($("input[name=title]").val() == "") {

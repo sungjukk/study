@@ -64,7 +64,6 @@
 			data : {id : $("input[name=overwatchId]").val()},
 			type: "POST"
 		}).done(function (data) {
-			console.log(data);
 		}) */
 	}
 </script>
