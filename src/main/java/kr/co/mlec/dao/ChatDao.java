@@ -45,4 +45,6 @@ public interface ChatDao {
 	
 	public ChatRoomVO getChatRoomByCno(String cno) throws Exception;
 	
+	public String getGroupNickName(String cno) throws Exception;
+	
 }

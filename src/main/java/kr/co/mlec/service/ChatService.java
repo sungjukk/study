@@ -35,4 +35,6 @@ public interface ChatService {
 	public List<MemberVO> getUserInfo(String[] userInfo) throws Exception;
 	
 	public ChatRoomVO getChatRoom(String cno) throws Exception;
+	
+	public String getGroupNickName(String cno) throws Exception;
 }

@@ -60,8 +60,6 @@ public class ChatController {
 			System.out.println(cv.getUser_list());
 			String[] userList = cv.getUser_list().split(",");
 			for (int i = 0; i < userList.length; i++) {
-				System.out.println("listNo : " + userList[i]);
-				System.out.println("uno : " + uno);
 				if (userList[i].equals(uno)) {
 					userList[i] = "";
 				}

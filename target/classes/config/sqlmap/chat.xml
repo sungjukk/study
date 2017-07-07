@@ -223,4 +223,14 @@
   		  FROM CHATROOM
  		 WHERE CNO = #{cno}
 	</select>
+	
+	<select id="getGroupNickName" parameterType="string" resultType="string">
+		SELECT SUBSTR(
+			        XMLAGG(
+			            XMLELEMENT(COL ,',', U.NICKNAME) ORDER BY U.NICKNAME).EXTRACT('//text()'
+			        ).GETSTRINGVAL()
+			       , 2) NICKNAME 
+		  FROM (SELECT CNO, CHAT_SEQ, USR_NO FROM MSGRECEIVEUSER WHERE CNO = #{cno}) A, TBLUSERINFO U
+		 WHERE A.USR_NO = U.USR_NO
+	</select>
 </mapper>

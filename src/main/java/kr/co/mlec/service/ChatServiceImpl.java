@@ -94,7 +94,7 @@ public class ChatServiceImpl implements ChatService {
 		for (ChatRoomDetailVO cd : roomList) {
 			// 1보다 크면 그룹채팅방
 			if (cd.getUsrCnt() > 1) {
-				System.out.println("그룹 채팅방 1");
+				cd.setNickName(dao.getGroupNickName(cd.getCno() + ""));
 			}
 		}
 		
@@ -185,5 +185,11 @@ public class ChatServiceImpl implements ChatService {
 	public ChatRoomVO getChatRoom(String cno) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.getChatRoomByCno(cno);
+	}
+
+	@Override
+	public String getGroupNickName(String cno) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.getGroupNickName(cno);
 	}
 }
