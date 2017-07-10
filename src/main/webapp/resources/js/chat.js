@@ -49,7 +49,6 @@ function chatMsgProcess(result) {
 	} else if (chatType == 3) {
 		// 메세지를 보낸 유저랑 같은 방에 있는 경우
 		if (cno == result.cno) {
-			console.log("asdsad");
 			result.usr_no = uNo;
 			$.ajax({
 				url : "/chat/receiveMsg",

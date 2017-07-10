@@ -57,9 +57,10 @@ function initChat(uno,rNo,usrList) {
 }
 
 function sendMsg() {
+	var content = $(".chatMsg").val().replace(/(?:\r\n|\r|\n)/g, '<br />');
 	var data = {
 		cno : cno,
-		content : $(".chatMsg").val(),
+		content : content,
 		send_usrno : myNo,
 		receive_usrno : reciveUsr
 	}
@@ -73,13 +74,13 @@ function sendMsg() {
 		data.state = chatType;
 		maxSeq = seq;
 		data.maxSeq = maxSeq;
-		console.log(data);
 		chat.emit('sendMsg',data);
 		$(".chatMessageList").append(result);
 		$(".chatList").scrollTop($(".chatMessageList").height());	
 	});
 	
 	$(".chatMsg").val("");
+	$(".chatMsg").height("24px");
 }
 
 function chatUpload() {

@@ -8,7 +8,6 @@ function errorUserImg(no) {
 
 function initRoomList(usrNo) {
 	usrno = usrNo;
-	console.log(usrno)
 	$.ajax({
 		url : "/chat/roomList",
 		type : "POST",

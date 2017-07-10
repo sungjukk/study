@@ -11,7 +11,7 @@
 			<div class="chatMessage" style="width: 100%; margin-bottom: 1em; overflow-x: hidden">
 				<div class="chatContent">
 					<c:choose>
-						<c:when test="${sendMsg.file_no == 0}"><c:out value="${sendMsg.content}" /></c:when>
+						<c:when test="${sendMsg.file_no == 0}">${sendMsg.content}</c:when>
 						<c:otherwise>
 							<c:choose>
 								<c:when test="${sendMsg.content == 'img'}">
@@ -55,7 +55,7 @@
 					<div style="font-size: 12px; font-weight: bold; margin-left: 10px; margin-top: 7px">${sendMsg.nickName}</div>
 					<div class="userChatContent" style="padding: 0.5em 1em 0.5em 0.5em; margin-left: 11px; margin-top: 0;">
 						<c:choose>
-							<c:when test="${sendMsg.file_no == 0}"><c:out value="${sendMsg.content}" /></c:when>
+							<c:when test="${sendMsg.file_no == 0}">${sendMsg.content}</c:when>
 							<c:otherwise>
 								<c:choose>
 									<c:when test="${sendMsg.content == 'img'}">

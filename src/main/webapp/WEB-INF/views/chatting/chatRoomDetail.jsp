@@ -14,7 +14,18 @@
 		initChat(${sessionScope.member.usr_no},${chatInfo.cno},'${chatInfo.user_list}');
 		
 		$("#chatFile").change(chatFileUpload);
+		
 	});
+	
+	function resize(obj) {
+		obj.style.height = "1px";
+		var objHeight = (2+obj.scrollHeight);
+		if (objHeight >= 190) {
+			obj.style.height = '190px';
+		} else {
+		    obj.style.height = objHeight+"px";			
+		}
+	}
 </script>
 <body>
 	<div class="showChatImg" style="width: 100%; height: 100%;top: 0px; left: 0px;z-index: 10; position: absolute; display: none; overflow-y: auto">
@@ -72,7 +83,7 @@
 						  	<button type="file" class="btn btn-default" onclick="chatUpload()">+</button>
 						  	<input type="file" id="chatFile" style="display: none">
 						  </span>
-					      <input type="text" class="form-control chatMsg" placeholder="Message">
+					      <textarea type="text" class="form-control chatMsg" placeholder="Message" style="resize: none" onkeyup="resize(this)"></textarea>
 					      <span class="input-group-btn">
 					        <button class="btn btn-default" type="button" onclick="sendMsg()">Àü¼Û</button>
 					      </span>
