@@ -46,7 +46,7 @@
 				</td>
 				<td class="usrNickName" style="vertical-align: baseline; padding-top: 1em">
 					<div>${room.nickName}</div>
-					<div style="font-size: 12px; margin-top: 9px; font-weight: normal;">${room.content }</div>
+					<div style="font-size: 12px; margin-top: 9px; font-weight: normal;overflow:hidden;white-space:nowrap; text-overflow: ellipsis; word-wrap : break-word; -webkit-line-clamp: 1; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical;">${room.content }</div>
 				</td>
 				<td style="vertical-align: baseline;">
 <%-- 					<fmt:parseDate var="sendDate" value="${room.send_date}" pattern="yyyy-MM-dd HH:mm:ss" /> --%>
