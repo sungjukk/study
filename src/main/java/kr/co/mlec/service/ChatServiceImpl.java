@@ -94,7 +94,15 @@ public class ChatServiceImpl implements ChatService {
 		for (ChatRoomDetailVO cd : roomList) {
 			// 1보다 크면 그룹채팅방
 			if (cd.getUsrCnt() > 1) {
-				cd.setNickName(dao.getGroupNickName(cd.getCno() + ""));
+				Map<String,Object> param = new HashMap<String, Object>();
+				param.put("cno", cd.getCno());
+				param.put("usr_no", usrNo);
+				Map<String,Object> resultMap = dao.getGroupUserInfo(param);
+				String thumbNail = (String)resultMap.get("FILEPATH");
+				String[] thumbNailList = thumbNail.split(",");
+				cd.setNickName((String)resultMap.get("NICKNAME"));
+				cd.setGroupThumbNail(thumbNailList);
+				System.out.println(cd.toString());
 			}
 		}
 		
@@ -176,20 +184,21 @@ public class ChatServiceImpl implements ChatService {
 	}
 
 	@Override
-	public List<MemberVO> getUserInfo(String[] userInfo) throws Exception {
+	public Map<String, Object> getUserInfo(String[] userInfo) throws Exception {
 		// TODO Auto-generated method stub
-		return dao.getUserInfo(userInfo);
+		Map<String, Object> map = new HashMap<String, Object>();
+		Map<String, Object> resultMap = dao.getUserInfo(userInfo);
+		String thumbNail = (String)resultMap.get("FILEPATH");
+		String[] thumbNailList = thumbNail.split(",");
+		map.put("nickName", (String)resultMap.get("NICKNAME"));
+		map.put("filePath", thumbNailList);
+		map.put("usrCnt", String.valueOf(resultMap.get("USRCNT")));
+		return map;
 	}
 
 	@Override
 	public ChatRoomVO getChatRoom(String cno) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.getChatRoomByCno(cno);
-	}
-
-	@Override
-	public String getGroupNickName(String cno) throws Exception {
-		// TODO Auto-generated method stub
-		return dao.getGroupNickName(cno);
 	}
 }

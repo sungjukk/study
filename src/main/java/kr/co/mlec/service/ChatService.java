@@ -1,14 +1,12 @@
 package kr.co.mlec.service;
 
 import java.util.List;
+import java.util.Map;
 
-import org.springframework.aop.ThrowsAdvice;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.mlec.vo.ChatRoomDetailVO;
 import kr.co.mlec.vo.ChatRoomVO;
-import kr.co.mlec.vo.FileVO;
 import kr.co.mlec.vo.MemberVO;
 
 public interface ChatService {
@@ -32,9 +30,8 @@ public interface ChatService {
 	
 	public int notReadCnt(int usr_no) throws Exception;
 	
-	public List<MemberVO> getUserInfo(String[] userInfo) throws Exception;
+	public Map<String,Object> getUserInfo(String[] userInfo) throws Exception;
 	
 	public ChatRoomVO getChatRoom(String cno) throws Exception;
 	
-	public String getGroupNickName(String cno) throws Exception;
 }

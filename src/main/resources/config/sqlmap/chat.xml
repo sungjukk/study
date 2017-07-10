@@ -209,8 +209,10 @@
 		    AND READ_YN = 'N'
 	</select>
 	
-	<select id="getUserInfo" parameterType="hashmap" resultMap="memberMap">
-		SELECT USR_NO, NICKNAME, FILEPATH, SYSNAME 
+	<select id="getUserInfo" parameterType="hashmap" resultType="hashmap">
+		SELECT SUBSTR(XMLAGG(XMLELEMENT(COL ,',', filepath||'/'||sysname) ORDER BY NICKNAME).EXTRACT('//text()').GETSTRINGVAL(), 2) filePath, 
+			   SUBSTR(XMLAGG(XMLELEMENT(COL ,',', NICKNAME) ORDER BY NICKNAME).EXTRACT('//text()').GETSTRINGVAL(), 2) NICKNAME,
+			   COUNT(*) AS USRCNT 
 		  FROM TBLUSERINFO 
 		 WHERE USR_NO IN
 		 <foreach collection="userInfo" item="usrNo" open="(" close=")" separator=",">
@@ -224,13 +226,20 @@
  		 WHERE CNO = #{cno}
 	</select>
 	
-	<select id="getGroupNickName" parameterType="string" resultType="string">
-		SELECT SUBSTR(
-			        XMLAGG(
-			            XMLELEMENT(COL ,',', U.NICKNAME) ORDER BY U.NICKNAME).EXTRACT('//text()'
-			        ).GETSTRINGVAL()
-			       , 2) NICKNAME 
-		  FROM (SELECT CNO, CHAT_SEQ, USR_NO FROM MSGRECEIVEUSER WHERE CNO = #{cno}) A, TBLUSERINFO U
+	<select id="getGroupNickName" parameterType="hashmap" resultType="hashmap">
+		SELECT SUBSTR(XMLAGG(XMLELEMENT(COL ,',', u.filepath||'/'||u.sysname) ORDER BY U.NICKNAME).EXTRACT('//text()').GETSTRINGVAL(), 2) filePath, 
+			   SUBSTR(XMLAGG(XMLELEMENT(COL ,',', U.NICKNAME) ORDER BY U.NICKNAME).EXTRACT('//text()').GETSTRINGVAL(), 2) NICKNAME 
+		  FROM (SELECT * 
+		          FROM (SELECT CNO, USR_NO 
+		                  FROM MSGRECEIVEUSER 
+		                 WHERE CNO = #{cno} 
+		                   AND CHAT_SEQ = (SELECT MAX(CHAT_SEQ) FROM CHATROOMDETAIL WHERE CNO = #{cno})
+		        	     UNION 
+		        	    SELECT CNO, SEND_USRNO AS USR_NO 
+		        	      FROM CHATROOMDETAIL 
+		        	     WHERE CNO = #{cno}  
+		        	       AND CHAT_SEQ = (SELECT MAX(CHAT_SEQ) FROM CHATROOMDETAIL WHERE CNO = #{cno})) 
+		          WHERE USR_NO NOT IN (#{usr_no})) A, TBLUSERINFO U
 		 WHERE A.USR_NO = U.USR_NO
 	</select>
 </mapper>

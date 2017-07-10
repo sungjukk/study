@@ -73,6 +73,7 @@ function sendMsg() {
 		data.state = chatType;
 		maxSeq = seq;
 		data.maxSeq = maxSeq;
+		console.log(data);
 		chat.emit('sendMsg',data);
 		$(".chatMessageList").append(result);
 		$(".chatList").scrollTop($(".chatMessageList").height());	

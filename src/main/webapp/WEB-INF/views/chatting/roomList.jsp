@@ -14,7 +14,36 @@
 	<c:forEach var="room" items="${roomList}" varStatus="qwe">
 		<form id="chatFrm${room.cno}" method="post"></form>
 			<tr class="roomInfo uTable${room.cno}" onclick="chatRoom(${room.cno})" style="border-bottom: 1px solid #f7f7f7">
-				<td style="padding: 1em 1.5em 1em 1em; width: 10%;"><img id="thumbnail${room.receive_usrno}" src="/image?file=${room.filePath}/${room.sysName}" onerror="javascript:errorUserImg(${room.receive_usrno})" /></td>
+				<td style="padding: 1em 1.5em 1em 1em; width: 10%;">
+					<c:choose>
+						<c:when test="${room.usrCnt > 1}">
+							<c:choose>
+								<c:when test="${room.usrCnt == 2}">
+									<img id="thumbnail${room.cno}${room.receive_usrno}" src="/image?file=${room.groupThumbNail[0]}" onerror="javascript:errorUserImg(${room.cno}${room.receive_usrno})" style="border-radius: 60px 0 0 60px; width: 30px" />						
+									<img id="thumbnailSec${room.cno}${room.receive_usrno}" src="/image?file=${room.groupThumbNail[1]}" onerror="javascript:errorUserImg('Sec${room.cno}${room.receive_usrno}')" style="border-radius: 0px 30px 30px 0px; width: 30px; float: right;" />			
+								</c:when>
+								<c:when test="${room.usrCnt == 3}">
+									<div style="width: 60px; height: 60px; position: relative;">
+										<img id="thumbnail${room.cno}${room.receive_usrno}" src="/image?file=${room.groupThumbNail[0]}" onerror="javascript:errorUserImg(${room.cno}${room.receive_usrno})" style="border-radius: 60px 0 0 60px; width: 30px; height: 100%" />						
+										<img id="thumbnailSec${room.cno}${room.receive_usrno}" src="/image?file=${room.groupThumbNail[1]}" onerror="javascript:errorUserImg('Sec${room.cno}${room.receive_usrno}')" style="border-radius: 0px 60px 0px 0px; width : 30px; height : 30px; float: right;" />			
+										<img id="thumbnailTh${room.cno}${room.receive_usrno}" src="/image?file=${room.groupThumbNail[2]}" onerror="javascript:errorUserImg('Th${room.cno}${room.receive_usrno}')" style="border-radius: 0px 0px 60px 0px; width: 30px; height: 30px; position: absolute; bottom: 0; left: 50%"  />												
+									</div>
+								</c:when>
+								<c:when test="${room.usrCnt >= 4}">
+									<div style="width: 60px; height: 60px; position: relative;">
+										<img id="thumbnail${room.cno}${room.receive_usrno}" src="/image?file=${room.groupThumbNail[0]}" onerror="javascript:errorUserImg(${room.cno}${room.receive_usrno})" style="border-radius: 60px 0 0 0; width: 30px; height: 30px" />						
+										<img id="thumbnailSec${room.cno}${room.receive_usrno}" src="/image?file=${room.groupThumbNail[1]}" onerror="javascript:errorUserImg('Sec${room.cno}${room.receive_usrno}')" style="border-radius: 0px 60px 0px 0px; width : 30px; height : 30px; float: right;" />			
+										<img id="thumbnailTh${room.cno}${room.receive_usrno}" src="/image?file=${room.groupThumbNail[2]}" onerror="javascript:errorUserImg('Th${room.cno}${room.receive_usrno}')" style="border-radius: 0px 0px 0px 60px; width: 30px; height: 30px; position: absolute; bottom: 0; left: 0"  />																					
+										<img id="thumbnailFour${room.cno}${room.receive_usrno}" src="/image?file=${room.groupThumbNail[2]}" onerror="javascript:errorUserImg('Four${room.cno}${room.receive_usrno}')" style="border-radius: 0px 0px 60px 0px; width: 30px; height: 30px; position: absolute; bottom: 0; left: 50%"  />																					
+									</div>
+								</c:when>
+							</c:choose>			
+						</c:when>
+						<c:otherwise>
+							<img id="thumbnail${room.receive_usrno}" src="/image?file=${room.filePath}/${room.sysName}" onerror="javascript:errorUserImg(${room.receive_usrno})" />
+						</c:otherwise>
+					</c:choose>
+				</td>
 				<td class="usrNickName" style="vertical-align: baseline; padding-top: 1em">
 					<div>${room.nickName}</div>
 					<div style="font-size: 12px; margin-top: 9px; font-weight: normal;">${room.content }</div>

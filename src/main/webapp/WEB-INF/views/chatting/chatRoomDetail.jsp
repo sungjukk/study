@@ -31,10 +31,31 @@
 		<div class="phoneBody">
 			<div class="phoneBodyContent">
 				<div class="chatState" style="width: 100%; height: 9%; background-color: rgba(152,182,204,1); position: fixed;" onclick="javascript:$('.chatList').scrollTop($('.chatList').scrollTop() - 500)">
-					<c:forEach var="user" items="${userInfo}">
-						<img class="chatThumbnail${user.nickName}" src="/image?file=${user.filePath}/${user.sysName}" style="width: 40px; height: 40px; border-radius: 50%; margin: 2% 0 0 3%; float: left;" onerror="javascript:errorUserImg('${user.nickName}')" >
-						<div style="padding-top: 5%; margin-left: 15%; font-size: 13px; font-weight: bold;">${user.nickName}</div>					
-					</c:forEach>
+					<c:choose>
+						<c:when test="${userInfo.usrCnt == 1}">
+							<img class="chatThumbnailOne" src="/image?file=${userInfo.filePath[0]}" style="width: 40px; height: 40px; border-radius: 50%; margin: 2% 0 0 3%; float: left;" onerror="javascript:errorUserImg('One')" >							
+						</c:when>
+						<c:when test="${userInfo.usrCnt == 2}">
+							<img class="chatThumbnailOne" src="/image?file=${userInfo.filePath[0]}" style="width: 20px; height: 40px; border-radius: 20px 0 0 20px; margin: 2% 0 0 3%; float: left;" onerror="javascript:errorUserImg('One')" >							
+							<img class="chatThumbnailTwo" src="/image?file=${userInfo.filePath[1]}" style="width: 20px; height: 40px; border-radius: 0 20px 20px 0; margin: 2% 0 0 0; float: left;" onerror="javascript:errorUserImg('Two')" >													
+						</c:when>
+						<c:when test="${userInfo.usrCnt == 3}">
+							<div style="width: 40px; height: 40px; margin: 2% 0 0 3%; position: relative; float: left;">
+								<img class="chatThumbnailOne" src="/image?file=${userInfo.filePath[0]}" style="width: 20px; height: 40px; border-radius: 20px 0 0 20px; float: left;" onerror="javascript:errorUserImg('One')" >							
+								<img class="chatThumbnailTwo" src="/image?file=${userInfo.filePath[1]}" style="width: 20px; height: 20px; border-radius: 0 20px 0 0; float: left;" onerror="javascript:errorUserImg('Two')" >
+								<img class="chatThumbnailThr" src="/image?file=${userInfo.filePath[2]}" style="width: 20px; height: 20px; border-radius: 0 0 20px 0; float: left;" onerror="javascript:errorUserImg('Thr')" >
+							</div>
+						</c:when>
+						<c:when test="${userInfo.usrCnt >= 4}">
+							<div style="width: 40px; height: 40px; margin: 2% 0 0 3%; position: relative; float: left;">
+								<img class="chatThumbnailOne" src="/image?file=${userInfo.filePath[0]}" style="width: 20px; height: 20px; border-radius: 20px 0 0 0; float: left;" onerror="javascript:errorUserImg('One')" >							
+								<img class="chatThumbnailTwo" src="/image?file=${userInfo.filePath[1]}" style="width: 20px; height: 20px; border-radius: 0 20px 0 0; float: left;" onerror="javascript:errorUserImg('Two')" >
+								<img class="chatThumbnailThr" src="/image?file=${userInfo.filePath[2]}" style="width: 20px; height: 20px; border-radius: 0 0 0 20px; float: left;" onerror="javascript:errorUserImg('Thr')" >
+								<img class="chatThumbnailFour" src="/image?file=${userInfo.filePath[3]}" style="width: 20px; height: 20px; border-radius: 0 0 20px 0; float: left;" onerror="javascript:errorUserImg('Four')" >
+							</div>							
+						</c:when>
+					</c:choose>
+					<div style="padding-top: 5%; margin-left: 15%; font-size: 13px; font-weight: bold;">${userInfo.nickName}</div>		
 				</div>
 				<div style="width: 100%; height: 8%"></div>
 				<div class="chatList" style="overflow-y: auto;height: 77%; overflow-x: hidden; position: fixed; width: 100%; background: rgba(160,192,215,1)">

@@ -1,7 +1,8 @@
 /**
  * 
  */
-var chat = io.connect("http://52.197.169.128:10001");	
+//var chat = io.connect("http://52.197.169.128:10001");	
+var chat = io.connect("http://122.99.198.182:10001");	
 var uNo;
 $(document).ready(function() {
 	uNo = $("input[name=isLogin]").val();
@@ -24,7 +25,6 @@ $(document).ready(function() {
 });
 
 chat.on('reciveMsg',function(result) {
-	
 	var receiveUser = result.receive_usrno.split(",");
 	var isUser = false;
 	
@@ -40,15 +40,16 @@ chat.on('reciveMsg',function(result) {
 });
 
 function chatMsgProcess(result) {
+	getNotReadCnt(uNo);
 	if (chatType == 1) {
 		// 아무 곳이나 있는 경우
-		getNotReadCnt(uNo);
 	} else if (chatType == 2) {
 		// 방목록에서 대기 중인 경우
 		initRoomList(uNo);
 	} else if (chatType == 3) {
 		// 메세지를 보낸 유저랑 같은 방에 있는 경우
 		if (cno == result.cno) {
+			console.log("asdsad");
 			result.usr_no = uNo;
 			$.ajax({
 				url : "/chat/receiveMsg",
@@ -61,6 +62,10 @@ function chatMsgProcess(result) {
 					data : result
 				}).done(function (json) {
 					if ($(".chatMessageList").height() * 0.5 <= $(".chatList").scrollTop()) {
+						$(".chatMessageList").append(text).find('img').on('load',function () {
+							$(".chatList").scrollTop($(".chatMessageList").height());			
+						});
+						$(".chatList").scrollTop($(".chatMessageList").height());
 					} else {
 						$(".chatMessageList").append(text).find('img').on('load',function () {
 							$(".chatList").scrollTop($(".chatMessageList").height());			

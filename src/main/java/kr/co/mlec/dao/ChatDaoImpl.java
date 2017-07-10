@@ -124,11 +124,11 @@ public class ChatDaoImpl implements ChatDao {
 	}
 
 	@Override
-	public List<MemberVO> getUserInfo(String[] userInfo) throws Exception {
+	public Map<String, Object> getUserInfo(String[] userInfo) throws Exception {
 		// TODO Auto-generated method stub
 		Map<String, String[]> param = new HashMap<String, String[]>();
 		param.put("userInfo", userInfo);
-		return sqlSessionTemplate.selectList(nameSpace + "getUserInfo", param);
+		return sqlSessionTemplate.selectOne(nameSpace + "getUserInfo", param);
 	}
 
 	@Override
@@ -138,8 +138,8 @@ public class ChatDaoImpl implements ChatDao {
 	}
 
 	@Override
-	public String getGroupNickName(String cno) throws Exception {
+	public Map<String,Object> getGroupUserInfo(Map<String,Object> param) throws Exception {
 		// TODO Auto-generated method stub
-		return sqlSessionTemplate.selectOne(nameSpace + "getGroupNickName", cno);
+		return sqlSessionTemplate.selectOne(nameSpace + "getGroupNickName", param);
 	}
 }

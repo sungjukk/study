@@ -1,5 +1,6 @@
 package kr.co.mlec.vo;
 
+import java.util.Arrays;
 import java.util.Date;
 
 public class ChatRoomDetailVO {
@@ -20,7 +21,15 @@ public class ChatRoomDetailVO {
 	private String sendOriName;
 	private String sendSysName;
 	private int usrCnt;
+	private String[] groupThumbNail;
 	
+	
+	public String[] getGroupThumbNail() {
+		return groupThumbNail;
+	}
+	public void setGroupThumbNail(String[] groupThumbNail) {
+		this.groupThumbNail = groupThumbNail;
+	}
 	public int getCno() {
 		return cno;
 	}
@@ -123,6 +132,15 @@ public class ChatRoomDetailVO {
 	}
 	public void setUsrCnt(int usrCnt) {
 		this.usrCnt = usrCnt;
+	}
+	@Override
+	public String toString() {
+		return "ChatRoomDetailVO [cno=" + cno + ", chat_seq=" + chat_seq + ", send_usrno=" + send_usrno
+				+ ", receive_usrno=" + receive_usrno + ", content=" + content + ", isRead=" + isRead + ", send_date="
+				+ send_date + ", receiveNo=" + receiveNo + ", filePath=" + filePath + ", sysName=" + sysName
+				+ ", nickName=" + nickName + ", readCnt=" + readCnt + ", file_no=" + file_no + ", sendFilePath="
+				+ sendFilePath + ", sendOriName=" + sendOriName + ", sendSysName=" + sendSysName + ", usrCnt=" + usrCnt
+				+ ", groupThumbNail=" + Arrays.toString(groupThumbNail) + "]";
 	}
 	
 }
