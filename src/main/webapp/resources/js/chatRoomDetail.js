@@ -70,6 +70,7 @@ function sendMsg() {
 		data : data,
 		type : "POST"
 	}).done(function (result) {
+		console.log(result);
 		var seq = result.split('value="')[1].split('"')[0];
 		data.state = chatType;
 		maxSeq = seq;
